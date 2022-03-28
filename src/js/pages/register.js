@@ -1,4 +1,5 @@
 import { userCreate } from "../../lib/auth-firebase.js";
+import { header } from "../components/header.js";
 
 export default function register() {
   const container = document.createElement("section");
@@ -12,7 +13,9 @@ export default function register() {
     <button id="logout">Logout</button>
   </div>`;
 
-  container.innerHTML = template;
+  container.appendChild(header());
+
+  container.innerHTML += template;
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");

@@ -1,5 +1,6 @@
 import "../../lib/config-firebase.js";
 import { userLogin } from "../../lib/auth-firebase.js";
+import { header } from "../components/header.js";
 
 export default function signin() {
   const container = document.createElement("section");
@@ -13,8 +14,9 @@ export default function signin() {
     <button id="logout">Logout</button>
   </form>
   `;
+  container.appendChild(header());
 
-  container.innerHTML = template;
+  container.innerHTML += template;
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");

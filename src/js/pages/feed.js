@@ -1,3 +1,5 @@
+import { header } from "../components/header.js";
+
 export default function timeLine() {
   const container = document.createElement("div");
 
@@ -10,7 +12,9 @@ export default function timeLine() {
     <button id="logout">Logout</button>
   </div>`;
 
-  container.innerHTML = template;
+  container.appendChild(header());
+
+  container.innerHTML += template;
 
   return container;
 }
