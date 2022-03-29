@@ -1,20 +1,34 @@
 import "../../lib/config-firebase.js";
 import { userLogin } from "../../lib/auth-firebase.js";
+import { header } from "../components/header.js";
+import { footer } from "../components/footer.js";
 
 export default function signin() {
   const container = document.createElement("section");
 
   const template = `
-  <form>
-    <p>Signin!</p>
-    <input type="email" id="email" autocomplete="on" />
-    <input type="password" id="password" />
-    <button id="buttonSubmit">Enviar</button>
-    <button id="logout">Logout</button>
-  </form>
-  `;
+  <div class="main-content">
+    <h1 class="text-form">Acesse sua conta ou cadastre-se</h1>
+    <div class="container">
+      <form class="form-container">
+        <label class="label-email">Email</label>
+        <input type="email" id="email" autocomplete="on"/>
+        <label class=label-password>Senha</label>
+        <input type="password" id="password" minlength="6"/>
+        <button id="buttonSubmit">Entrar</button>
+        <p class="text-p">Não tem uma conta?<a href="#register">Cadastre-se</a></p>
+        <p class="text">ou</p>
+        <button id="buttonGoogle"><img src="../../assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
+      </form>
+    </div>
+  </div>
 
-  container.innerHTML = template;
+  `;
+  container.appendChild(header());
+
+  container.innerHTML += template;
+
+  container.appendChild(footer());
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");
@@ -35,3 +49,4 @@ export default function signin() {
 
   return container;
 }
+

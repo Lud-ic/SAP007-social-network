@@ -1,10 +1,12 @@
 import { userCreate } from "../../lib/auth-firebase.js";
+import { footer } from "../components/footer.js";
+import { header } from "../components/header.js";
 
 export default function register() {
   const container = document.createElement("section");
 
   const template = `
-  <div>
+  <div class="main-content">
     <p>Register!</p>
     <input type="email" id="email" autocomplete="on" />
     <input type="password" id="password" />
@@ -12,7 +14,11 @@ export default function register() {
     <button id="logout">Logout</button>
   </div>`;
 
-  container.innerHTML = template;
+  container.appendChild(header());
+
+  container.innerHTML += template;
+
+  container.appendChild(footer());
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");

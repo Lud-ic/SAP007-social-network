@@ -8,9 +8,6 @@ const init = () => {
   window.addEventListener("hashchange", () => {
     main.innerHTML = "";
     switch (window.location.hash) {
-      case "#signin":
-        main.appendChild(signin());
-        break;
       case "#register":
         main.appendChild(register());
         break;
