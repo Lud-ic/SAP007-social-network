@@ -1,4 +1,5 @@
 import { userCreate } from "../../lib/auth-firebase.js";
+import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
 
 export default function register() {
@@ -16,6 +17,8 @@ export default function register() {
   container.appendChild(header());
 
   container.innerHTML += template;
+
+  container.appendChild(footer());
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");
