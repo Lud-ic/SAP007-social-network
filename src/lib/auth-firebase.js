@@ -3,9 +3,12 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
 
 export const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
 export function userCreate(email, password) {
   return createUserWithEmailAndPassword(auth, email, password).then(
@@ -34,4 +37,13 @@ export function userLogout() {
     .catch((error) => {
       return error;
     });
+}
+
+export function signinGoogle() {
+  return signInWithPopup(auth, provider).then((result) => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+    return user;
+  });
 }
