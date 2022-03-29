@@ -1,0 +1,21 @@
+.footer-container {
+  background-color: #f27983;
+  height: var(--height-footer);
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  align-items: center;
+  width: 100vw;
+}
+
+.footer-text {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.linkedin {
+  color: #ffffff;
+  padding-left: 5px;
+}

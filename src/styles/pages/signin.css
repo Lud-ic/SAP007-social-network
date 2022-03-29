@@ -1,6 +1,12 @@
 @import "../reset.css";
 @import "../variables.css";
 @import "../components/header.css";
+@import "../components/footer.css";
+
+.main-content {
+  min-height: var(--height-main-content);
+}
+
 
 section{
   background: #E5E5E5;
@@ -87,5 +93,4 @@ section{
   line-height: 19px;
   align-items: center;
 }
-
 
