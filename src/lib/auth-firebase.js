@@ -5,7 +5,7 @@ import {
   signOut,
 } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
 
-const auth = getAuth();
+export const auth = getAuth();
 
 export function userCreate(email, password) {
   return createUserWithEmailAndPassword(auth, email, password).then(
