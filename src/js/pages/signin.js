@@ -1,5 +1,5 @@
 import "../../lib/config-firebase.js";
-import { userLogin } from "../../lib/auth-firebase.js";
+import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
 
@@ -33,6 +33,7 @@ export default function signin() {
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");
   const buttonSubmit = container.querySelector("#buttonSubmit");
+  const buttonGoogle = container.querySelector("#buttonGoogle");
 
   buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault();
@@ -47,6 +48,19 @@ export default function signin() {
       });
   });
 
+  buttonGoogle.addEventListener("click", (e) => {
+    e.preventDefault();
+    signinGoogle()
+      .then(function () {
+        window.location.hash = "#timeLine";
+        alert("Sucesso!!");
+      })
+      .catch((error) => {
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log("Erroooo");
+        return credential;
+      });
+  });
+
   return container;
 }
-
