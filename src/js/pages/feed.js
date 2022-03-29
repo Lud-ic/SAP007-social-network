@@ -5,7 +5,7 @@ export default function timeLine() {
   const container = document.createElement("div");
 
   const template = `
-  <div>
+  <div class="main-content">
     <p>timeLine!</p>
     <input type="email" id="email" autocomplete="on" />
     <input type="password" id="password" />

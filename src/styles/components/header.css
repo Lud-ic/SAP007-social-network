@@ -1,6 +1,6 @@
 .header-container {
   background-color: #034c8c;
-  height: 9vh;
+  height: var(--height-header);
   display: flex;
   flex-direction: row;
   /* justify-content: space-between; */

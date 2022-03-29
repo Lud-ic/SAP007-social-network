@@ -7,7 +7,7 @@ export default function signin() {
   const container = document.createElement("section");
 
   const template = `
-  <form>
+  <form class="main-content">
     <p>Signin!</p>
     <input type="email" id="email" autocomplete="on" />
     <input type="password" id="password" />

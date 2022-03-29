@@ -6,7 +6,7 @@ export default function register() {
   const container = document.createElement("section");
 
   const template = `
-  <div>
+  <div class="main-content">
     <p>Register!</p>
     <input type="email" id="email" autocomplete="on" />
     <input type="password" id="password" />
