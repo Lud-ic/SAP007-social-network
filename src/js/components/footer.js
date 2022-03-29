@@ -1,16 +1,18 @@
 export function footer() {
-  const container = document.createElement("header");
-  // container.classList.add("header-container");
+  const container = document.createElement("footer");
+  container.classList.add("footer-container");
 
   const template = `
-  <div>
-    <img src="../../assets/icon/logo.svg" alt="logo"/>
-    <p>Viajar e Compartilhar</p>
-  </div>
+    <p class="footer-text">Desenvolvido por
+    <a target="_blank" class="linkedin" href="https://www.linkedin.com/in/elizenai/"> Elizenai </a>,
+    <a target="_blank" class="linkedin" href="https://www.linkedin.com/in/ludmila-magalhaes/"> Ludmila e </a>
+    <a target="_blank" class="linkedin" href="www.linkedin.com/in/taila-martins"> Taila </a>
+    </p>
+
 
   `;
 
   container.innerHTML = template;
-  console.log(header, ";;;;;;");
+
   return container;
 }
