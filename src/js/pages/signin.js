@@ -14,6 +14,7 @@ export default function signin() {
         <label class="label-email">Email</label>
         <input type="email" class="email" id="email" autocomplete="on"/>
         <label class=label-password>Senha</label>
+
         <input type="password" class="password" id="password" minlength="6"/>
         <button class="buttonSubmit" id="buttonSubmit">Entrar</button>
         <p class="text-p">Não tem uma conta?<a href="#register"> Cadastre-se</a></p>
