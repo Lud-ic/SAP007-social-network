@@ -12,13 +12,14 @@ export default function signin() {
     <div class="container">
       <form class="form-container">
         <label class="label-email">Email</label>
-        <input type="email" id="email" autocomplete="on"/>
+        <input type="email" class="email" id="email" autocomplete="on"/>
         <label class=label-password>Senha</label>
-        <input type="password" id="password" minlength="6"/>
-        <button id="buttonSubmit">Entrar</button>
-        <p class="text-p">Não tem uma conta?<a class="link" href="#register">Cadastre-se</a></p>
+
+        <input type="password" class="password" id="password" minlength="6"/>
+        <button class="buttonSubmit" id="buttonSubmit">Entrar</button>
+        <p class="text-p">Não tem uma conta?<a href="#register"> Cadastre-se</a></p>
         <p class="text">ou</p>
-        <button id="buttonGoogle"><img src="../../assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
+        <button class="buttonGoogle" id="buttonGoogle"><img src="../../assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
       </form>
     </div>
   </div>

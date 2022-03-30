@@ -6,8 +6,6 @@
 .main-content {
   min-height: var(--height-main-content);
 }
-
-
 section{
   background: #E5E5E5;
 }
@@ -22,7 +20,7 @@ section{
 .container{
   display: flex;
   justify-content: center;
-}
+  }
 .form-container{
   display: flex;
   align-content: center;
@@ -34,42 +32,65 @@ section{
   border: 2px solid #F2D194;
   box-sizing: border-box;
   border-radius: 20px;
+  padding-top: 25px;
+
 }
 .label-email{
   font-weight: 400;
   font-size: 15px;
   line-height: 19px;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
 }
-#email {
+.email {
   background: #FFFFFF;
   border: 1px solid #000000;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 9px;
   padding: 0.3rem;
+  width: 90%;
 }
 .label-password{
   font-weight: 400;
   font-size: 15px;
   line-height: 19px;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
+  padding-top: 15px;
 }
-#password{
+.confirmation {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 19px;
+  padding: 0.5rem 0;
+  padding-top: 15px;
+}
+.password{
   background: #FFFFFF;
   border: 1px solid #000000;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 9px;
   padding: 0.3rem;
+  width: 90%;
 }
-#buttonSubmit{
+.buttonSubmit{
   margin-top: 25px;
   background: #79C4F2;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 9px;
   padding: 0.3rem;
   font-size: 15px;
   line-height: 19px;
-  text-align: center
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: 1s all;
+}
+
+.btn-register{
+  margin-top: 40px;
+}
+.buttonSubmit:hover{
+  background: #009fdd;
+
 }
 .text-p{
   font-size: 10px;
@@ -98,23 +119,30 @@ section{
   width: 35%;
   top: 45%;
 }
+
 .text::after{
   left: 0%;
 }
 .text::before{
   right: 0%;
 }
-
-
-#buttonGoogle{
+.buttonGoogle{
   margin-top: 15px;
   display: flex;
   background: #F2D194;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 9px;
   padding: 0.3rem;
   font-size: 15px;
   line-height: 19px;
+  justify-content: space-evenly;
   align-items: center;
+  cursor: pointer;
+  border: none;
+  transition: 1s all;
 }
 
+.buttonGoogle:hover{
+ background: #F4C061;
+
+}
