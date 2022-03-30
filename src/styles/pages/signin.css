@@ -77,11 +77,35 @@ section{
   text-align: center;
   padding: 0.7rem;
 }
+.link{
+  text-decoration: none;
+  color: #000000;
+  padding: 2px;
+}
 .text{
+  padding: 00.3rem;
+  text-align: center;
   font-size: 15px;
   line-height: 19px;
-  text-align: center
+  position: relative;
 }
+.text::after, .text::before{
+  content:" ";
+  position: absolute;
+  margin: auto;
+  height: 1px;
+  background: #000000;
+  width: 35%;
+  top: 45%;
+}
+.text::after{
+  left: 0%;
+}
+.text::before{
+  right: 0%;
+}
+
+
 #buttonGoogle{
   margin-top: 15px;
   display: flex;
