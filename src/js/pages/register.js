@@ -7,11 +7,19 @@ export default function register() {
 
   const template = `
   <div class="main-content">
-    <p>Register!</p>
-    <input type="email" id="email" autocomplete="on" />
-    <input type="password" id="password" />
-    <button id="buttonSubmit">Enviar</button>
-    <button id="logout">Logout</button>
+    <h1 class="text-form">Crie sua conta</h1>
+    <div class="container">
+      <form class="form-container">
+        <label class="label-email">Email</label>
+        <input type="email" class="email" id="email" autocomplete="on"/>
+        <label class=label-password>Senha</label>
+        <input type="password" class="password" id="password" minlength="6"/>
+        <label class="label-password confirmation">Confirme sua senha</label>
+        <input type="password" class="password" id="password" minlength="6"/>
+        <button class="buttonSubmit btn-register" id="buttonSubmit">Cadastrar</button>
+        <p class="text-p"> <a href="#signin">Ja tem uma conta? </a></p>
+      </form>
+    </div>
   </div>`;
 
   container.appendChild(header());
