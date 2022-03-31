@@ -1,5 +1,5 @@
 import "../../lib/config-firebase.js";
-import { userLogin } from "../../lib/auth-firebase.js";
+import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
 
@@ -12,13 +12,14 @@ export default function signin() {
     <div class="container">
       <form class="form-container">
         <label class="label-email">Email</label>
-        <input type="email" id="email" autocomplete="on"/>
+        <input type="email" class="email" id="email" autocomplete="on"/>
         <label class=label-password>Senha</label>
-        <input type="password" id="password" minlength="6"/>
-        <button id="buttonSubmit">Entrar</button>
-        <p class="text-p">Não tem uma conta?<a href="#register">Cadastre-se</a></p>
+
+        <input type="password" class="password" id="password" minlength="6"/>
+        <button class="buttonSubmit" id="buttonSubmit">Entrar</button>
+        <p class="text-p">Não tem uma conta?<a href="#register"> Cadastre-se</a></p>
         <p class="text">ou</p>
-        <button id="buttonGoogle"><img src="../../assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
+        <button class="buttonGoogle" id="buttonGoogle"><img src="../../assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
       </form>
     </div>
   </div>
@@ -33,6 +34,7 @@ export default function signin() {
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");
   const buttonSubmit = container.querySelector("#buttonSubmit");
+  const buttonGoogle = container.querySelector("#buttonGoogle");
 
   buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault();
@@ -47,6 +49,19 @@ export default function signin() {
       });
   });
 
+  buttonGoogle.addEventListener("click", (e) => {
+    e.preventDefault();
+    signinGoogle()
+      .then(function () {
+        window.location.hash = "#timeLine";
+        alert("Sucesso!!");
+      })
+      .catch((error) => {
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log("Erroooo");
+        return credential;
+      });
+  });
+
   return container;
 }
-
