@@ -3,7 +3,7 @@ export function header() {
   container.classList.add("header-container");
 
   const template = `
-    <img src="/assets/icon/logo.svg" alt="logo" class="logo"/>
+    <img src="/src/assets/icon/logo.svg" alt="logo" class="logo"/>
     <p class="title">Viajar e Compartilhar</p>
   `;
 
