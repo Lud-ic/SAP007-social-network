@@ -1,9 +1,8 @@
-
 import { posts } from "../../lib/firestore-firebase.js";
 import { auth } from "../../lib/auth-firebase.js";
+import { userLogout } from "../../lib/auth-firebase.js";
 import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
-
 
 export default function timeLine() {
   const container = document.createElement("div");
@@ -17,19 +16,28 @@ export default function timeLine() {
     <button id="buttonSubmit">Enviar</button>
     <button id="logout">Logout</button>
   </div>`;
-  
+
   container.appendChild(header());
   container.innerHTML += template;
   container.appendChild(footer());
-  
+
   const city = container.querySelector("#city");
   const country = container.querySelector("#country");
   const message = container.querySelector("#message");
+  const buttonSubmit = container.querySelector("#buttonSubmit");
+  const logout = container.querySelector("#logout");
 
-  container.querySelector("#buttonSubmit").addEventListener("click", e => {
-  e.preventDefault()
-  posts(city.value, country.value, message.value, auth.currentUser.email)
-  })
+  buttonSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    posts(city.value, country.value, message.value, auth.currentUser.email);
+  });
+
+  logout.addEventListener("click", (e) => {
+    e.preventDefault();
+    userLogout().then(function () {
+      window.location.hash = "";
+    });
+  });
 
   return container;
 }
