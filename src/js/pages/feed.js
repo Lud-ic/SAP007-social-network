@@ -29,7 +29,25 @@ export default function timeLine() {
 
   buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    posts(city.value, country.value, message.value, auth.currentUser.email);
+    posts(
+      city.value,
+      country.value,
+      message.value,
+      auth.currentUser.email
+    ).then(function () {
+      const container2 = document.createElement("div");
+
+      const template2 = `
+      <div class="teste">
+        <p>${city.value}</p>
+        <p>${country.value}</p>
+        <p>${message.value}</p>
+      </div>`;
+
+      container2.innerHTML += template2;
+      console.log(template2);
+      return container2;
+    });
   });
 
   logout.addEventListener("click", (e) => {
@@ -38,6 +56,8 @@ export default function timeLine() {
       window.location.hash = "";
     });
   });
+
+  // container.appendChild();
 
   return container;
 }
