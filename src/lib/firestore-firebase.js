@@ -7,13 +7,14 @@ import {
 
 const db = getFirestore();
 
-export async function posts(city, country, message, userEmail){
+export async function posts(city, country, message, userEmail) {
   try {
     const docRef = await addDoc(collection(db, "posts"), {
       city: city,
       country: country,
       message: message,
       userEmail: userEmail,
+      date: new Date(),
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -24,4 +25,3 @@ export async function posts(city, country, message, userEmail){
 // querySnapshot.forEach((doc) => {
 //   console.log(`${doc.id} => ${doc.data()}`);
 // });
-
