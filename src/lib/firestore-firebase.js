@@ -7,7 +7,7 @@ import {
 
 const db = getFirestore();
 
-export async function posts(city, country, message, userEmail) {
+export async function addPosts(city, country, message, userEmail) {
   try {
     const docRef = await addDoc(collection(db, "posts"), {
       city: city,

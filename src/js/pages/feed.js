@@ -1,8 +1,9 @@
-import { posts } from "../../lib/firestore-firebase.js";
+import { addPosts } from "../../lib/firestore-firebase.js";
 import { auth } from "../../lib/auth-firebase.js";
 import { userLogout } from "../../lib/auth-firebase.js";
 import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
+import { gettingPosts } from "../components/posts.js";
 
 export default function timeLine() {
   const container = document.createElement("div");
@@ -15,6 +16,8 @@ export default function timeLine() {
     <input type="text" id="message" autocomplete="on" />
     <button id="buttonSubmit">Enviar</button>
     <button id="logout">Logout</button>
+
+    <section id="sectionNewPost"></section>
   </div>`;
 
   container.appendChild(header());
@@ -26,27 +29,18 @@ export default function timeLine() {
   const message = container.querySelector("#message");
   const buttonSubmit = container.querySelector("#buttonSubmit");
   const logout = container.querySelector("#logout");
+  const sectionNewPost = container.querySelector("#sectionNewPost");
 
   buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    posts(
+    addPosts(
       city.value,
       country.value,
       message.value,
       auth.currentUser.email
     ).then(function () {
-      const container2 = document.createElement("div");
-
-      const template2 = `
-      <div class="teste">
-        <p>${city.value}</p>
-        <p>${country.value}</p>
-        <p>${message.value}</p>
-      </div>`;
-
-      container2.innerHTML += template2;
-      console.log(template2);
-      return container2;
+      const teste = gettingPosts(city, country, message);
+      sectionNewPost.innerHTML = teste;
     });
   });
 
