@@ -1,4 +1,4 @@
-import { addPosts } from "../../lib/firestore-firebase.js";
+import { addPosts, getPosts } from "../../lib/firestore-firebase.js";
 import { auth } from "../../lib/auth-firebase.js";
 import { userLogout } from "../../lib/auth-firebase.js";
 import { footer } from "../components/footer.js";
@@ -18,6 +18,7 @@ export default function timeLine() {
     <button id="logout">Logout</button>
 
     <section id="sectionNewPost"></section>
+    <section id="sectionAllPost"></section>
   </div>`;
 
   container.appendChild(header());
@@ -47,6 +48,22 @@ export default function timeLine() {
     });
   });
 
+  const sectionPost = container.querySelector("#sectionAllPost");
+
+  const showAllPosts = async () => {
+    const allPosts = await getPosts();
+    allPosts.map((item) => {
+      console.log(item);
+      const postElement = gettingPosts(
+        item.city,
+        item.country,
+        item.message,
+        item.date
+      );
+      sectionPost.appendChild(postElement);
+    });
+  };
+
   logout.addEventListener("click", (e) => {
     e.preventDefault();
     userLogout().then(function () {
@@ -54,11 +71,6 @@ export default function timeLine() {
     });
   });
 
-  // container.appendChild();
-
+  showAllPosts();
   return container;
 }
-
-// const buttonSubmit = document.getElementById("buttonSubmit");
-
-// buttonSubmit.window.location();

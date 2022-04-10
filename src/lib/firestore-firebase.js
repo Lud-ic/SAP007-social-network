@@ -2,7 +2,7 @@ import {
   collection,
   addDoc,
   getFirestore,
-  // getDocs,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js";
 
 const db = getFirestore();
@@ -21,7 +21,15 @@ export async function addPosts(city, country, message, userEmail) {
     console.error("Error adding document: ", e);
   }
 }
-// const querySnapshot = await getDocs(collection(db, "users"));
-// querySnapshot.forEach((doc) => {
-//   console.log(`${doc.id} => ${doc.data()}`);
-// });
+
+export const getPosts = async () => {
+  const arrPosts = [];
+  const querySnapshot = await getDocs(collection(db, "posts"));
+  querySnapshot.forEach((doc) => {
+    const timeline = doc.data();
+    // console.log(`${doc.id} => ${doc.data()}`);
+    arrPosts.push(timeline);
+  });
+  // console.log(arrPosts, "arrayPosts");
+  return arrPosts;
+};
