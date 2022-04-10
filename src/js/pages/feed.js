@@ -22,6 +22,7 @@ export default function timeLine() {
 
   container.appendChild(header());
   container.innerHTML += template;
+
   container.appendChild(footer());
 
   const city = container.querySelector("#city");
@@ -39,8 +40,10 @@ export default function timeLine() {
       message.value,
       auth.currentUser.email
     ).then(function () {
-      const teste = gettingPosts(city, country, message);
-      sectionNewPost.innerHTML = teste;
+      const date = new Date();
+      sectionNewPost.prepend(
+        gettingPosts(city.value, country.value, message.value, date)
+      );
     });
   });
 
