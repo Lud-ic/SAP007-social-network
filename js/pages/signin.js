@@ -19,7 +19,7 @@ export default function signin() {
         <button class="buttonSubmit" id="buttonSubmit">Entrar</button>
         <p class="text-p">Não tem uma conta?<a href="#register"> Cadastre-se</a></p>
         <p class="text">ou</p>
-        <button class="buttonGoogle" id="buttonGoogle"><img src="../../assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
+        <button class="buttonGoogle" id="buttonGoogle"><img src="assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
       </form>
     </div>
   </div>
