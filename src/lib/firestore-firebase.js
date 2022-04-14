@@ -9,12 +9,13 @@ const db = getFirestore();
 
 export async function addPosts(city, country, message, userEmail) {
   try {
+
     const docRef = await addDoc(collection(db, "posts"), {
       city: city,
       country: country,
       message: message,
       userEmail: userEmail,
-      date: new Date(),
+      date: new Date().toLocaleString("pt-br")
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {

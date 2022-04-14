@@ -5,7 +5,9 @@ import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
 import { gettingPosts } from "../components/posts.js";
 
+
 export default function timeLine() {
+
   const container = document.createElement("div");
 
   const template = `
@@ -16,7 +18,6 @@ export default function timeLine() {
     <input type="text" id="message" autocomplete="on" />
     <button id="buttonSubmit">Enviar</button>
     <button id="logout">Logout</button>
-
     <section id="sectionNewPost"></section>
     <section id="sectionAllPost"></section>
   </div>`;
@@ -41,7 +42,7 @@ export default function timeLine() {
       message.value,
       auth.currentUser.email
     ).then(function () {
-      const date = new Date();
+      const date = new Date().toLocaleString("pt-br")
       sectionNewPost.prepend(
         gettingPosts(city.value, country.value, message.value, date)
       );
@@ -53,14 +54,13 @@ export default function timeLine() {
   const showAllPosts = async () => {
     const allPosts = await getPosts();
     allPosts.map((item) => {
-      console.log(item);
       const postElement = gettingPosts(
         item.city,
         item.country,
         item.message,
-        item.date
+        item.date,
       );
-      sectionPost.appendChild(postElement);
+      sectionPost.prepend(postElement);
     });
   };
 
