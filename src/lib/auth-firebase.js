@@ -5,6 +5,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
 
 export const auth = getAuth();
@@ -46,4 +47,9 @@ export function signinGoogle() {
     const user = result.user;
     return user;
   });
+}
+
+export function checkLoggedUser() {
+  const user = auth.currentUser;
+  return user;
 }
