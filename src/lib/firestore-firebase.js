@@ -3,18 +3,22 @@ import {
   addDoc,
   getFirestore,
   getDocs,
+  orderBy,
+  query,
+ // deleteDoc,
 } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js";
 
 const db = getFirestore();
 
 export async function addPosts(city, country, message, userEmail) {
   try {
+
     const docRef = await addDoc(collection(db, "posts"), {
       city: city,
       country: country,
       message: message,
       userEmail: userEmail,
-      date: new Date(),
+      date: new Date().toLocaleString("pt-br")
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -22,14 +26,23 @@ export async function addPosts(city, country, message, userEmail) {
   }
 }
 
+
 export const getPosts = async () => {
   const arrPosts = [];
-  const querySnapshot = await getDocs(collection(db, "posts"));
+  const orderFirestore = query(collection(db, "posts"), orderBy("date"))
+  const querySnapshot = await getDocs(orderFirestore);
   querySnapshot.forEach((doc) => {
     const timeline = doc.data();
-    // console.log(`${doc.id} => ${doc.data()}`);
+
     arrPosts.push(timeline);
+
   });
-  // console.log(arrPosts, "arrayPosts");
+
+
   return arrPosts;
+
 };
+
+
+
+// export const deletePosts = await deleteDoc(doc(db, "posts", " userEmail"));
