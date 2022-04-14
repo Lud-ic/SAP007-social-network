@@ -5,9 +5,7 @@ import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
 import { gettingPosts } from "../components/posts.js";
 
-
 export default function timeLine() {
-
   const container = document.createElement("div");
 
   const template = `
@@ -42,9 +40,15 @@ export default function timeLine() {
       message.value,
       auth.currentUser.email
     ).then(function () {
-      const date = new Date().toLocaleString("pt-br")
+      const date = new Date().toLocaleString("pt-br");
       sectionNewPost.prepend(
-        gettingPosts(city.value, country.value, message.value, date)
+        gettingPosts(
+          auth.currentUser.email,
+          city.value,
+          country.value,
+          message.value,
+          date
+        )
       );
     });
   });
@@ -55,10 +59,11 @@ export default function timeLine() {
     const allPosts = await getPosts();
     allPosts.map((item) => {
       const postElement = gettingPosts(
+        item.userEmail,
         item.city,
         item.country,
         item.message,
-        item.date,
+        item.date
       );
       sectionPost.prepend(postElement);
     });
