@@ -11,12 +11,12 @@ export default function register() {
     <div class="container">
       <form class="form-container">
         <label class="label-email">Email</label>
-        <input type="email" class="email" id="email" autocomplete="on"/>
+        <input type="email" class="email" id="email" autocomplete="on" required/>
         <label class=label-password>Senha</label>
-        <input type="password" class="password" id="password" minlength="6"/>
+        <input type="password" class="password" id="password" minlength="6"required/>
         <label class="label-password confirmation">Confirme sua senha</label>
-        <input type="password" class="password" id="password" minlength="6"/>
-        <button class="buttonSubmit btn-register" id="buttonSubmit">Cadastrar</button>
+        <input type="password" class="password" id="password" minlength="6"required/>
+        <button class="buttonSubmit btn-register" type="submit">Cadastrar</button>
         <p class="text-p"> <a href="#signin">Ja tem uma conta? </a></p>
       </form>
     </div>
@@ -30,9 +30,8 @@ export default function register() {
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");
-  const buttonSubmit = container.querySelector("#buttonSubmit");
 
-  buttonSubmit.addEventListener("click", (e) => {
+  container.addEventListener("submit", (e) => {
     e.preventDefault();
     userCreate(email.value, password.value)
       .then(function () {

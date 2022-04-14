@@ -12,11 +12,11 @@ export default function signin() {
     <div class="container">
       <form class="form-container">
         <label class="label-email">Email</label>
-        <input type="email" class="email" id="email" autocomplete="on"/>
+        <input type="email" class="email" id="email" autocomplete="on" required/>
         <label class=label-password>Senha</label>
 
-        <input type="password" class="password" id="password" minlength="6"/>
-        <button class="buttonSubmit" id="buttonSubmit">Entrar</button>
+        <input type="password" class="password" id="password" minlength="6" required/>
+        <button class="buttonSubmit" type="submit">Entrar</button>
         <p class="text-p">Não tem uma conta?<a href="#register"> Cadastre-se</a></p>
         <p class="text">ou</p>
         <button class="buttonGoogle" id="buttonGoogle"><img src="../../assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
@@ -24,7 +24,7 @@ export default function signin() {
     </div>
   </div>
 
-  `;
+  `;''
   container.appendChild(header());
 
   container.innerHTML += template;
@@ -33,10 +33,9 @@ export default function signin() {
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");
-  const buttonSubmit = container.querySelector("#buttonSubmit");
   const buttonGoogle = container.querySelector("#buttonGoogle");
 
-  buttonSubmit.addEventListener("click", (e) => {
+  container.addEventListener("submit", (e) => {
     e.preventDefault();
     userLogin(email.value, password.value)
       .then(function () {
