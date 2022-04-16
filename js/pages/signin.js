@@ -1,5 +1,5 @@
 import "../../lib/config-firebase.js";
-import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
+import { signinGoogle, userLogin } from "lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
 import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
