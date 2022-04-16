@@ -1,15 +1,15 @@
 import signin from "./pages/signin.js";
 import register from "./pages/register.js";
 import timeLine from "./pages/feed.js";
-import { checkLoggerUser } from "../lib/auth-firebase.js";
+import { checkLoggedUser } from "../lib/auth-firebase.js";
 
 const main = document.getElementById("root");
 
 const redirectRoutes = () => {
   main.innerHTML = "";
-  const user = checkLoggerUser();
-  console.log(user);
-  if (user) {
+  const loggedIn = checkLoggedUser();
+  console.log(loggedIn);
+  if (loggedIn) {
     switch (window.location.hash) {
       case "#register":
         main.appendChild(register());
