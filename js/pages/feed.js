@@ -10,15 +10,21 @@ export default function timeLine() {
 
   const template = `
   <div class="main-content">
-    <p>timeLine!</p>
-    <input type="text" id="city" autocomplete="on" />
-    <input type="text" id="country" autocomplete="on" />
-    <input type="text" id="message" autocomplete="on" />
-    <button id="buttonSubmit">Enviar</button>
-    <button id="logout">Logout</button>
-
-    <section id="sectionNewPost"></section>
-    <section id="sectionAllPost"></section>
+    <div class="logout-container">
+      <button id="logout" class="logout">Sair</button>
+    </div>
+    <div class="message-typing-container">
+      <input type="text" id="city" class="message-typing" autocomplete="on" placeholder="Cidade"/>
+      <input type="text" id="country" class="message-typing" autocomplete="on" placeholder="País"/>
+      <textarea name="textarea" rows="5" cols="30" id="message" class="message message-typing" placeholder="Compartilhe sua experiência aqui"></textarea>
+    </div>
+    <div class="button-submit-container">
+    <button id="buttonSubmit" class="button-submit-feed">Publicar</button>
+    </div>
+    <div class="section-posts-container">
+      <section id="sectionNewPost" class="section-post "></section>
+      <section id="sectionAllPost" class="section-post"></section>
+    </div>
   </div>`;
 
   container.appendChild(header());
@@ -41,9 +47,15 @@ export default function timeLine() {
       message.value,
       auth.currentUser.email
     ).then(function () {
-      const date = new Date();
+      const date = new Date().toLocaleString("pt-br");
       sectionNewPost.prepend(
-        gettingPosts(city.value, country.value, message.value, date)
+        gettingPosts(
+          auth.currentUser.email,
+          city.value,
+          country.value,
+          message.value,
+          date
+        )
       );
     });
   });
@@ -53,14 +65,14 @@ export default function timeLine() {
   const showAllPosts = async () => {
     const allPosts = await getPosts();
     allPosts.map((item) => {
-      console.log(item);
       const postElement = gettingPosts(
+        item.userEmail,
         item.city,
         item.country,
         item.message,
         item.date
       );
-      sectionPost.appendChild(postElement);
+      sectionPost.prepend(postElement);
     });
   };
 
