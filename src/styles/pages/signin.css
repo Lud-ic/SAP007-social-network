@@ -7,7 +7,7 @@
   min-height: var(--height-main-content);
 }
 section{
-  background: #E5E5E5;
+  /* background: #E5E5E5; */
 }
 .text-form {
   display: flex;
