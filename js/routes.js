@@ -10,6 +10,7 @@ const redirectRoutes = () => {
   const loggedIn = checkLoggedUser();
   console.log(loggedIn);
   if (loggedIn) {
+    console.log("Caiu no if");
     switch (window.location.hash) {
       case "#register":
         main.appendChild(register());
@@ -22,6 +23,7 @@ const redirectRoutes = () => {
     }
   } else {
     window.location.hash = "";
+    console.log("Caiu no else");
     main.appendChild(signin());
   }
 };

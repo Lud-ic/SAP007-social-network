@@ -46,17 +46,17 @@ export default function timeLine() {
       country.value,
       message.value,
       auth.currentUser.email
-    ).then(function () {
+    ).then(function (id) {
       const date = new Date().toLocaleString("pt-br");
-      sectionNewPost.prepend(
-        gettingPosts(
-          auth.currentUser.email,
-          city.value,
-          country.value,
-          message.value,
-          date
-        )
-      );
+      const item = {
+        userEmail: auth.currentUser.email,
+        city: city.value,
+        country: country.value,
+        message: message.value,
+        date: date,
+        id: id,
+      };
+      sectionNewPost.prepend(gettingPosts(item));
     });
   });
 
@@ -65,13 +65,7 @@ export default function timeLine() {
   const showAllPosts = async () => {
     const allPosts = await getPosts();
     allPosts.map((item) => {
-      const postElement = gettingPosts(
-        item.userEmail,
-        item.city,
-        item.country,
-        item.message,
-        item.date
-      );
+      const postElement = gettingPosts(item);
       sectionPost.prepend(postElement);
     });
   };
@@ -79,6 +73,7 @@ export default function timeLine() {
   logout.addEventListener("click", (e) => {
     e.preventDefault();
     userLogout().then(function () {
+      //limpar localStorage
       window.location.hash = "";
     });
   });

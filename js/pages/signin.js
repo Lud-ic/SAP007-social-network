@@ -1,5 +1,5 @@
 import "../../lib/config-firebase.js";
-import { signinGoogle, userLogin } from "lib/auth-firebase.js";
+import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
 import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
@@ -41,6 +41,7 @@ export default function signin() {
     e.preventDefault();
     userLogin(email.value, password.value)
       .then(function () {
+        //localStorage
         window.location.hash = "#timeLine";
       })
       .catch((error) => {
@@ -54,6 +55,7 @@ export default function signin() {
     e.preventDefault();
     signinGoogle()
       .then(function () {
+        //localStorage
         window.location.hash = "#timeLine";
         alert("Sucesso!!");
       })

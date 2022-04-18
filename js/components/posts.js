@@ -1,17 +1,20 @@
-export function gettingPosts(email, city, country, message, date) {
+import { deletePosts } from "../../lib/firestore-firebase.js";
+
+export function gettingPosts(item) {
   const container = document.createElement("section");
 
   const templatePosts = `
       <div class="post-frame">
         <div class="post-items-organization">
-          <p>${email}</p>
-          <img src="assets/icon/edit.svg"/>
+          <p>${item.userEmail}</p>
+          <p>${item.id}</p>
+          <img id="editPost" src="assets/icon/edit.svg"/>
         </div>
         <div class="post-items-organization">
-          <p>${city}, ${country}</p>
-          <p>${date}</p>
+          <p>${item.city}, ${item.country}</p>
+          <p>${item.date}</p>
         </div>
-        <p>${message}</p>
+        <p>${item.message}</p>
         <div class="like-container">
           <img class="like-icon" src="assets/icon/no-like.svg"/>
         </div>
@@ -19,5 +22,13 @@ export function gettingPosts(email, city, country, message, date) {
 
   container.innerHTML = templatePosts;
 
+  const editPost = container.querySelector("#editPost");
+
+  editPost.addEventListener("click", (e) => {
+    console.log(e);
+    console.log(item.id);
+    deletePosts();
+    container.remove();
+  });
   return container;
 }
