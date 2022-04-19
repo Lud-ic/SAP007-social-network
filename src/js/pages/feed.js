@@ -56,6 +56,9 @@ export default function timeLine() {
         id,
       };
       sectionNewPost.prepend(gettingPosts(item));
+      city.value = "";
+      country.value = "";
+      message.value = "";
     });
   });
 
