@@ -7,6 +7,7 @@ import {
   query,
   doc,
   deleteDoc,
+} from "./exports.js";
 
 const db = getFirestore();
 

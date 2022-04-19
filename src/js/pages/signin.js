@@ -25,7 +25,7 @@ export default function signin() {
   </div>
 
   `;
-  ("");
+
   container.appendChild(header());
 
   container.innerHTML += template;
@@ -39,7 +39,8 @@ export default function signin() {
   container.addEventListener("submit", (e) => {
     e.preventDefault();
     userLogin(email.value, password.value)
-      .then(function () {
+      .then(() => {
+        // localStorage
         window.location.hash = "#timeLine";
       })
       .catch((error) => {
@@ -51,16 +52,16 @@ export default function signin() {
 
   buttonGoogle.addEventListener("click", (e) => {
     e.preventDefault();
-    signinGoogle()
-      .then(function () {
-        window.location.hash = "#timeLine";
-        alert("Sucesso!!");
-      })
-      .catch((error) => {
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log("Erroooo");
-        return credential;
-      });
+    signinGoogle().then(() => {
+      // localStorage
+      window.location.hash = "#timeLine";
+      alert("Sucesso!!");
+    });
+    // .catch((error) => {
+    // const credential = GoogleAuthProvider.credentialFromError(error);
+    // console.log("Erroooo");
+    // return credential;
+    // });
   });
 
   return container;
