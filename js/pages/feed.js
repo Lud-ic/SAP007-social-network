@@ -1,6 +1,5 @@
 import { addPosts, getPosts } from "../../lib/firestore-firebase.js";
-import { auth } from "../../lib/auth-firebase.js";
-import { userLogout } from "../../lib/auth-firebase.js";
+import { auth, userLogout } from "../../lib/auth-firebase.js";
 import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
 import { gettingPosts } from "../components/posts.js";
@@ -45,16 +44,16 @@ export default function timeLine() {
       city.value,
       country.value,
       message.value,
-      auth.currentUser.email
-    ).then(function (id) {
+      auth.currentUser.email,
+    ).then((id) => {
       const date = new Date().toLocaleString("pt-br");
       const item = {
         userEmail: auth.currentUser.email,
         city: city.value,
         country: country.value,
         message: message.value,
-        date: date,
-        id: id,
+        date,
+        id,
       };
       sectionNewPost.prepend(gettingPosts(item));
     });
@@ -64,7 +63,7 @@ export default function timeLine() {
 
   const showAllPosts = async () => {
     const allPosts = await getPosts();
-    allPosts.map((item) => {
+    allPosts.forEach((item) => {
       const postElement = gettingPosts(item);
       sectionPost.prepend(postElement);
     });
@@ -72,8 +71,8 @@ export default function timeLine() {
 
   logout.addEventListener("click", (e) => {
     e.preventDefault();
-    userLogout().then(function () {
-      //limpar localStorage
+    userLogout().then(() => {
+      // limpar localStorage
       window.location.hash = "";
     });
   });

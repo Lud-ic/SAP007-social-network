@@ -2,7 +2,6 @@ import "../../lib/config-firebase.js";
 import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
-import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";
 
 export default function signin() {
   const container = document.createElement("section");
@@ -26,7 +25,7 @@ export default function signin() {
   </div>
 
   `;
-  ("");
+
   container.appendChild(header());
 
   container.innerHTML += template;
@@ -40,8 +39,8 @@ export default function signin() {
   container.addEventListener("submit", (e) => {
     e.preventDefault();
     userLogin(email.value, password.value)
-      .then(function () {
-        //localStorage
+      .then(() => {
+        // localStorage
         window.location.hash = "#timeLine";
       })
       .catch((error) => {
@@ -53,17 +52,16 @@ export default function signin() {
 
   buttonGoogle.addEventListener("click", (e) => {
     e.preventDefault();
-    signinGoogle()
-      .then(function () {
-        //localStorage
-        window.location.hash = "#timeLine";
-        alert("Sucesso!!");
-      })
-      .catch((error) => {
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log("Erroooo");
-        return credential;
-      });
+    signinGoogle().then(() => {
+      // localStorage
+      window.location.hash = "#timeLine";
+      alert("Sucesso!!");
+    });
+    // .catch((error) => {
+    // const credential = GoogleAuthProvider.credentialFromError(error);
+    // console.log("Erroooo");
+    // return credential;
+    // });
   });
 
   return container;

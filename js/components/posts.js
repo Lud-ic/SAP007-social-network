@@ -7,8 +7,10 @@ export function gettingPosts(item) {
       <div class="post-frame">
         <div class="post-items-organization">
           <p>${item.userEmail}</p>
-          <p>${item.id}</p>
-          <img id="editPost" src="assets/icon/edit.svg"/>
+          <div >
+            <img id="editPost" src="assets/icon/edit.svg"/>
+            <img id="deletePost" class="bin-trash" src="assets/icon/bin-trash.svg"/>
+          </div>
         </div>
         <div class="post-items-organization">
           <p>${item.city}, ${item.country}</p>
@@ -16,18 +18,18 @@ export function gettingPosts(item) {
         </div>
         <p>${item.message}</p>
         <div class="like-container">
+
           <img class="like-icon" src="assets/icon/no-like.svg"/>
         </div>
       </div>`;
 
   container.innerHTML = templatePosts;
 
-  const editPost = container.querySelector("#editPost");
+  const deletePost = container.querySelector("#deletePost");
 
-  editPost.addEventListener("click", (e) => {
-    console.log(e);
-    console.log(item.id);
-    deletePosts();
+  deletePost.addEventListener("click", (e) => {
+    e.preventDefault();
+    deletePosts(item.id);
     container.remove();
   });
   return container;

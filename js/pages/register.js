@@ -34,7 +34,7 @@ export default function register() {
   container.addEventListener("submit", (e) => {
     e.preventDefault();
     userCreate(email.value, password.value)
-      .then(function () {
+      .then(() => {
         window.location.hash = "#timeLine";
       })
       .catch((error) => {
