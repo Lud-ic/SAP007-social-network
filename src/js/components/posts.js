@@ -2,14 +2,14 @@ import { auth } from "../../lib/auth-firebase.js";
 import { deletePosts } from "../../lib/firestore-firebase.js";
 import { modalEditPost } from "./modal.js";
 
-export function gettingPosts(item) {
-  const isPostOwner = item.userEmail === auth.currentUser.email;
+export function gettingPosts(post) {
+  const isPostOwner = post.userEmail === auth.currentUser.email;
   const container = document.createElement("section");
 
   const templatePosts = `
       <div class="post-frame">
         <div class="post-items-organization">
-          <p>${item.userEmail}</p>
+          <p>${post.userEmail}</p>
           ${isPostOwner ? `
           <div>
             <img id="editPost" src="assets/icon/edit.svg"/>
@@ -18,10 +18,10 @@ export function gettingPosts(item) {
 
         </div>
         <div class="post-items-organization">
-          <p>${item.city}, ${item.country}</p>
-          <p>${item.date}</p>
+          <p>${post.city}, ${post.country}</p>
+          <p>${post.date}</p>
         </div>
-        <p>${item.message}</p>
+        <p>${post.message}</p>
         <div class="like-container">
 
           <img class="like-icon" src="assets/icon/no-like.svg"/>
@@ -31,20 +31,21 @@ export function gettingPosts(item) {
   container.innerHTML = templatePosts;
 
   if (isPostOwner) {
-  const deletePost = container.querySelector("#deletePost");
+    const deletePost = container.querySelector("#deletePost");
 
-  deletePost.addEventListener("click", (e) => {
-    e.preventDefault();
-    deletePosts(item.id);
-    container.remove();
-  });
+    deletePost.addEventListener("click", (e) => {
+      e.preventDefault();
+      deletePosts(post.id);
+      container.remove();
+    });
 
-  const editPost = container.querySelector("#editPost");
+    const editPost = container.querySelector("#editPost");
 
-  editPost.addEventListener("click", (e) => {
-    e.preventDefault();
-    container.appendChild(modalEditPost());
-  });
+    editPost.addEventListener("click", (e) => {
+      e.preventDefault();
+      container.appendChild(modalEditPost(post));
+    });
+  }
 
   return container;
 }

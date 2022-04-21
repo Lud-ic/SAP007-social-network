@@ -47,7 +47,7 @@ export default function timeLine() {
       auth.currentUser.email,
     ).then((id) => {
       const date = new Date().toLocaleString("pt-br");
-      const item = {
+      const post = {
         userEmail: auth.currentUser.email,
         city: city.value,
         country: country.value,
@@ -55,7 +55,7 @@ export default function timeLine() {
         date,
         id,
       };
-      sectionNewPost.prepend(gettingPosts(item));
+      sectionNewPost.prepend(gettingPosts(post));
       city.value = "";
       country.value = "";
       message.value = "";
@@ -66,8 +66,8 @@ export default function timeLine() {
 
   const showAllPosts = async () => {
     const allPosts = await getPosts();
-    allPosts.forEach((item) => {
-      const postElement = gettingPosts(item);
+    allPosts.forEach((post) => {
+      const postElement = gettingPosts(post);
       sectionPost.prepend(postElement);
     });
   };
