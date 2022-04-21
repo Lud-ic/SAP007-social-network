@@ -1,4 +1,5 @@
 import { deletePosts } from "../../lib/firestore-firebase.js";
+import { modalEditPost } from "./modal.js";
 
 export function gettingPosts(item) {
   const container = document.createElement("section");
@@ -32,5 +33,13 @@ export function gettingPosts(item) {
     deletePosts(item.id);
     container.remove();
   });
+
+  const editPost = container.querySelector("#editPost");
+
+  editPost.addEventListener("click", (e) => {
+    e.preventDefault();
+    container.appendChild(modalEditPost());
+  });
+
   return container;
 }
