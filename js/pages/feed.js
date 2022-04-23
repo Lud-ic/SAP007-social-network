@@ -54,6 +54,7 @@ export default function timeLine() {
         message: message.value,
         date,
         id,
+        likes: [],
       };
       sectionNewPost.prepend(gettingPosts(item));
       city.value = "";
@@ -75,7 +76,7 @@ export default function timeLine() {
   logout.addEventListener("click", (e) => {
     e.preventDefault();
     userLogout().then(() => {
-      // limpar localStorage
+      localStorage.removeItem("userEmail");
       window.location.hash = "";
     });
   });
