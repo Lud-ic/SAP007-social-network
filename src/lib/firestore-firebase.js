@@ -7,6 +7,9 @@ import {
   query,
   doc,
   deleteDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from "./exports.js";
 
 const db = getFirestore();
@@ -19,6 +22,7 @@ export async function addPosts(city, country, message, userEmail) {
       message,
       userEmail,
       date: new Date().toLocaleString("pt-br"),
+      likes: [],
     });
 
     console.log("Document written with ID: ", docRef.id);
@@ -42,6 +46,34 @@ export const getPosts = async () => {
   return arrPosts;
 };
 
-export function deletePosts(item) {
-  return deleteDoc(doc(db, "posts", item));
+export function deletePosts(itemId) {
+  return deleteDoc(doc(db, "posts", itemId));
+}
+
+export async function like(itemId, userEmail) {
+  try {
+    const postId = doc(db, "posts", itemId);
+    console.log(itemId, "id");
+    console.log(postId, "postId");
+    console.log(userEmail, "useremail");
+    return await updateDoc(postId, {
+      likes: arrayUnion(userEmail),
+    });
+  } catch (e) {
+    return console.log("Não deu certo o like", e);
+  }
+}
+
+export async function dislike(itemId, userEmail) {
+  try {
+    const postId = doc(db, "posts", itemId);
+    console.log(itemId, "id");
+    console.log(postId, "postId");
+    console.log(userEmail, "useremail");
+    return await updateDoc(postId, {
+      likes: arrayRemove(userEmail),
+    });
+  } catch (e) {
+    return console.log("Não deu certo o like", e);
+  }
 }

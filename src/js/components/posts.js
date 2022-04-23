@@ -1,15 +1,15 @@
 import { auth } from "../../lib/auth-firebase.js";
-import { deletePosts } from "../../lib/firestore-firebase.js";
+import { deletePosts, like, dislike } from "../../lib/firestore-firebase.js";
 import { modalEditPost } from "./modal.js";
 
-export function gettingPosts(item) {
+export function gettingPosts(post) {
   const isPostOwner = item.userEmail === auth.currentUser.email;
   const container = document.createElement("section");
 
   const templatePosts = `
       <div class="post-frame">
         <div class="post-items-organization">
-          <p>${item.userEmail}</p>
+          <p>${post.userEmail}</p>
           ${isPostOwner ? `
           <div>
             <img id="editPost" src="assets/icon/edit.svg"/>
@@ -18,13 +18,16 @@ export function gettingPosts(item) {
 
         </div>
         <div class="post-items-organization">
-          <p>${item.city}, ${item.country}</p>
-          <p>${item.date}</p>
+          <p>${post.city}, ${post.country}</p>
+          <p>${post.date}</p>
         </div>
-        <p>${item.message}</p>
-        <div class="like-container">
+        <p>${post.message}</p>
+        <div class="like-container" id="like">
+          <button id="button-like" class="button-like">
+            <img class="like-icon" src="assets/icon/no-like.svg"/>
+          </button>
+          <p id="num-likes" class="num-likes">${post.likes.length}</p>
 
-          <img class="like-icon" src="assets/icon/no-like.svg"/>
         </div>
       </div>`;
 
@@ -35,8 +38,31 @@ export function gettingPosts(item) {
 
   deletePost.addEventListener("click", (e) => {
     e.preventDefault();
-    deletePosts(item.id);
+    deletePosts(post.id);
     container.remove();
+  });
+
+  const buttonLike = container.querySelector("#like");
+  const countLikes = container.querySelector("#num-likes");
+
+  buttonLike.addEventListener("click", () => {
+    const postLike = post.likes;
+    if (!postLike.includes(auth.currentUser.email)) {
+      like(post.id, auth.currentUser.email).then(() => {
+        postLike.push(auth.currentUser.email);
+        const addLikeNum = Number(countLikes.innerHTML) + 1;
+        countLikes.innerHTML = addLikeNum;
+        console.log(countLikes);
+        console.log(post, "poooooost");
+      });
+    } else {
+      dislike(post.id, auth.currentUser.email).then(() => {
+        postLike.splice(auth.currentUser.email);
+        const addLikeNum = Number(countLikes.innerHTML) - 1;
+        countLikes.innerHTML = addLikeNum;
+        console.log(countLikes);
+      });
+    }
   });
 
   const editPost = container.querySelector("#editPost");
