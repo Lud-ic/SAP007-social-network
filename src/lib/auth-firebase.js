@@ -46,6 +46,6 @@ export function signinGoogle() {
 
 export function checkLoggedUser() {
   const user = auth.currentUser;
-  // localStorage
-  return user;
+
+  return user || localStorage.getItem("userEmail");
 }

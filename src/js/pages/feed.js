@@ -76,7 +76,7 @@ export default function timeLine() {
   logout.addEventListener("click", (e) => {
     e.preventDefault();
     userLogout().then(() => {
-      // limpar localStorage
+      localStorage.removeItem("userEmail");
       window.location.hash = "";
     });
   });
