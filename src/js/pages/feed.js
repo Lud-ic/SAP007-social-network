@@ -54,6 +54,7 @@ export default function timeLine() {
         message: message.value,
         date,
         id,
+        likes: [],
       };
       sectionNewPost.prepend(gettingPosts(item));
       city.value = "";
