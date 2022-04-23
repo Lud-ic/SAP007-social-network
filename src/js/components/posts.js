@@ -3,7 +3,7 @@ import { deletePosts, like, dislike } from "../../lib/firestore-firebase.js";
 import { modalEditPost } from "./modal.js";
 
 export function gettingPosts(post) {
-  const isPostOwner = item.userEmail === auth.currentUser.email;
+  const isPostOwner = post.userEmail === auth.currentUser.email;
   const container = document.createElement("section");
 
   const templatePosts = `
@@ -34,13 +34,21 @@ export function gettingPosts(post) {
   container.innerHTML = templatePosts;
 
   if (isPostOwner) {
-  const deletePost = container.querySelector("#deletePost");
+    const deletePost = container.querySelector("#deletePost");
 
-  deletePost.addEventListener("click", (e) => {
-    e.preventDefault();
-    deletePosts(post.id);
-    container.remove();
-  });
+    deletePost.addEventListener("click", (e) => {
+      e.preventDefault();
+      deletePosts(post.id);
+      container.remove();
+    });
+
+    const editPost = container.querySelector("#editPost");
+
+    editPost.addEventListener("click", (e) => {
+      e.preventDefault();
+      container.appendChild(modalEditPost());
+    });
+  }
 
   const buttonLike = container.querySelector("#like");
   const countLikes = container.querySelector("#num-likes");
@@ -64,13 +72,5 @@ export function gettingPosts(post) {
       });
     }
   });
-
-  const editPost = container.querySelector("#editPost");
-
-  editPost.addEventListener("click", (e) => {
-    e.preventDefault();
-    container.appendChild(modalEditPost());
-  });
-
   return container;
 }
