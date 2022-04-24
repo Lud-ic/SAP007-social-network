@@ -15,7 +15,6 @@ export function gettingPosts(post) {
             <img id="editPost" src="assets/icon/edit.svg"/>
             <img id="deletePost" class="bin-trash" src="assets/icon/bin-trash.svg"/>
           </div>` : ""}
-
         </div>
         <div class="post-items-organization">
           <p>${post.city}, ${post.country}</p>
@@ -46,7 +45,7 @@ export function gettingPosts(post) {
 
     editPost.addEventListener("click", (e) => {
       e.preventDefault();
-      container.appendChild(modalEditPost());
+      container.appendChild(modalEditPost(post));
     });
   }
 
