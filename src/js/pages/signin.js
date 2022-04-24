@@ -52,7 +52,8 @@ export default function signin() {
 
   buttonGoogle.addEventListener("click", (e) => {
     e.preventDefault();
-    signinGoogle().then(() => {
+    signinGoogle().then((result) => {
+      localStorage.setItem("userEmail", JSON.stringify(result.user));
       window.location.hash = "#timeLine";
       alert("Sucesso!!");
     });
