@@ -7,8 +7,6 @@ import {
   signInWithPopup,
 } from "./exports.js";
 
-// import * as banana from "./exports.js";
-
 export const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
