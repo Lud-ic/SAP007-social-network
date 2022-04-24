@@ -1,6 +1,7 @@
+import { editPosts } from "../../lib/firestore-firebase.js";
+
 export function modalEditPost(post) {
   const container = document.createElement("div");
-
   const template = `
   <div id=modal class="modal">
     <div id=modalContent class="modal-content">
@@ -20,7 +21,13 @@ export function modalEditPost(post) {
 
   const modal = container.querySelector("#modal");
   const savePost = container.querySelector("#buttonSubmit");
+  const city = container.querySelector("#city");
+  const country = container.querySelector("#country");
+  const message = container.querySelector("#message");
   savePost.addEventListener("click", () => {
+    editPosts(post.id, city.value, country.value, message.value).then(() => {
+
+    });
     modal.classList.add("close-modal");
   });
 
