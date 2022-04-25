@@ -1,12 +1,3 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js"; // eslint-disable-line
-
 export {
   getAuth,
   createUserWithEmailAndPassword,
@@ -14,7 +5,7 @@ export {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
-};
+} from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js"; // eslint-disable-line
 
 export {
   collection,
