@@ -45,7 +45,10 @@ export function gettingPosts(post) {
 
     editPost.addEventListener("click", (e) => {
       e.preventDefault();
-      container.appendChild(modalEditPost(post));
+      const modalElement = modalEditPost(post);
+      container.appendChild(modalElement);
+      const elemento = modalElement.querySelector("#message").value;
+      console.log(elemento, "elementooooo");
     });
   }
 
