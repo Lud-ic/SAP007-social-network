@@ -1,7 +1,7 @@
 import { editPosts } from "../../lib/firestore-firebase.js";
 
-export function modalEditPost(post) {
-  const container = document.createElement("div");
+export function modalEditPost(post, postContainer) {
+  const modalContainer = document.createElement("div");
   const template = `
   <div id=modal class="modal">
     <div id=modalContent class="modal-content">
@@ -17,25 +17,31 @@ export function modalEditPost(post) {
   </div>
     `;
 
-  container.innerHTML = template;
+  modalContainer.innerHTML = template;
 
-  const modal = container.querySelector("#modal");
-  const savePost = container.querySelector("#buttonSubmit");
-  const city = container.querySelector("#city");
-  const country = container.querySelector("#country");
-  const message = container.querySelector("#message");
+  const modal = modalContainer.querySelector("#modal");
+  const savePost = modalContainer.querySelector("#buttonSubmit");
+  const city = modalContainer.querySelector("#city");
+  const country = modalContainer.querySelector("#country");
+  const message = modalContainer.querySelector("#message");
+
   savePost.addEventListener("click", () => {
-    editPosts(post.id, city.value, country.value, message.value).then(() => {
+    editPosts(post.id, city.value, country.value, message.value);
+    const newCity = postContainer.querySelector("#city");
+    const newCountry = postContainer.querySelector("#country");
+    const newMessage = postContainer.querySelector("#message");
+    newCity.innerHTML = city.value;
+    newCountry.innerHTML = country.value;
+    newMessage.innerHTML = message.value;
 
-    });
-    modal.classList.add("close-modal");
+    modalContainer.remove();
   });
 
   window.addEventListener("click", (e) => {
     if (e.target === modal) {
-      modal.classList.add("close-modal");
+      modalContainer.remove();
     }
   });
 
-  return container;
+  return modalContainer;
 }
