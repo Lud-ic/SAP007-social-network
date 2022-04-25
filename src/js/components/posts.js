@@ -1,6 +1,6 @@
 import { auth } from "../../lib/auth-firebase.js";
-import { deletePosts, like, dislike } from "../../lib/firestore-firebase.js";
-import { modalEditPost } from "./modal.js";
+import { like, dislike } from "../../lib/firestore-firebase.js";
+import { modalDeletePost, modalEditPost } from "./modal.js";
 
 export function gettingPosts(post) {
   const isPostOwner = post.userEmail === auth.currentUser.email;
@@ -37,8 +37,9 @@ export function gettingPosts(post) {
 
     deletePost.addEventListener("click", (e) => {
       e.preventDefault();
-      deletePosts(post.id);
-      container.remove();
+      // deletePosts(post.id);
+      // container.remove();
+      container.appendChild(modalDeletePost(post, container));
     });
 
     const editPost = container.querySelector("#editPost");

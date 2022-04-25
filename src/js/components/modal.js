@@ -1,5 +1,7 @@
+import { deletePosts } from "../../lib/firestore-firebase.js";
+
 export function modalEditPost(post) {
-  const container = document.createElement("div");
+  const modalContainer = document.createElement("div");
 
   const template = `
   <div id=modal class="modal">
@@ -16,11 +18,51 @@ export function modalEditPost(post) {
   </div>
     `;
 
-  container.innerHTML = template;
+  modalContainer.innerHTML = template;
 
-  const modal = container.querySelector("#modal");
-  const savePost = container.querySelector("#buttonSubmit");
+  const modal = modalContainer.querySelector("#modal");
+  const savePost = modalContainer.querySelector("#buttonSubmit");
   savePost.addEventListener("click", () => {
+    modal.classList.add("close-modal");
+    // postContainer.innerHTML = whatever the new html should be (like in gettingPosts)
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.add("close-modal");
+    }
+  });
+
+  return modalContainer;
+}
+
+export function modalDeletePost(post, postContainer) {
+  const modalContainer = document.createElement("div");
+
+  const template = `
+  <div id=modal class="modal">
+    <div>
+      <p>Você tem certeza que deseja excluir a postagem?</p>
+      <div>
+        <button id="button-yes" class="button-confirm-delete">Sim</button>
+        <button id="button-no" class="button-confirm-delete">Não</button>
+      </div>
+    </div>
+  </div>
+  `;
+
+  modalContainer.innerHTML = template;
+
+  const modal = modalContainer.querySelector("#modal");
+  const buttonYes = modalContainer.querySelector("#button-yes");
+  const buttonNo = modalContainer.querySelector("#button-no");
+
+  buttonYes.addEventListener("click", () => {
+    deletePosts(post.id);
+    postContainer.remove();
+  });
+
+  buttonNo.addEventListener("click", () => {
     modal.classList.add("close-modal");
   });
 
@@ -30,5 +72,5 @@ export function modalEditPost(post) {
     }
   });
 
-  return container;
+  return modalContainer;
 }
