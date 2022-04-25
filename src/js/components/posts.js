@@ -1,36 +1,76 @@
-import { deletePosts } from "../../lib/firestore-firebase.js";
+import { auth } from "../../lib/auth-firebase.js";
+import { deletePosts, like, dislike } from "../../lib/firestore-firebase.js";
+import { modalEditPost } from "./modal.js";
 
-export function gettingPosts(item) {
+export function gettingPosts(post) {
+  const isPostOwner = post.userEmail === auth.currentUser.email;
   const container = document.createElement("section");
 
   const templatePosts = `
       <div class="post-frame">
         <div class="post-items-organization">
-          <p>${item.userEmail}</p>
-          <div >
+          <p>${post.userEmail}</p>
+          ${isPostOwner ? `
+          <div>
             <img id="editPost" src="assets/icon/edit.svg"/>
             <img id="deletePost" class="bin-trash" src="assets/icon/bin-trash.svg"/>
-          </div>
+          </div>` : ""}
         </div>
         <div class="post-items-organization">
-          <p>${item.city}, ${item.country}</p>
-          <p>${item.date}</p>
+          <p><span id="city">${post.city}</span>, <span id="country">${post.country}</span></p>
+          <p>${post.date}</p>
         </div>
-        <p>${item.message}</p>
-        <div class="like-container">
+        <p id="message">${post.message}</p>
+        <div class="like-container" id="like">
+          <button id="button-like" class="button-like">
+            <img class="like-icon" src="assets/icon/no-like.svg"/>
+          </button>
+          <p id="num-likes" class="num-likes">${post.likes.length}</p>
 
-          <img class="like-icon" src="assets/icon/no-like.svg"/>
         </div>
       </div>`;
 
   container.innerHTML = templatePosts;
 
-  const deletePost = container.querySelector("#deletePost");
+  if (isPostOwner) {
+    const deletePost = container.querySelector("#deletePost");
 
-  deletePost.addEventListener("click", (e) => {
-    e.preventDefault();
-    deletePosts(item.id);
-    container.remove();
+    deletePost.addEventListener("click", (e) => {
+      e.preventDefault();
+      deletePosts(post.id);
+      container.remove();
+    });
+
+    const editPost = container.querySelector("#editPost");
+
+    editPost.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      container.appendChild(modalEditPost(post, container));
+    });
+  }
+
+  const buttonLike = container.querySelector("#like");
+  const countLikes = container.querySelector("#num-likes");
+
+  buttonLike.addEventListener("click", () => {
+    const postLike = post.likes;
+    if (!postLike.includes(auth.currentUser.email)) {
+      like(post.id, auth.currentUser.email).then(() => {
+        postLike.push(auth.currentUser.email);
+        const addLikeNum = Number(countLikes.innerHTML) + 1;
+        countLikes.innerHTML = addLikeNum;
+        console.log(countLikes);
+        console.log(post, "poooooost");
+      });
+    } else {
+      dislike(post.id, auth.currentUser.email).then(() => {
+        postLike.splice(auth.currentUser.email);
+        const addLikeNum = Number(countLikes.innerHTML) - 1;
+        countLikes.innerHTML = addLikeNum;
+        console.log(countLikes);
+      });
+    }
   });
   return container;
 }

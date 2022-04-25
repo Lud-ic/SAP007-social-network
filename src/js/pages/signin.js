@@ -39,8 +39,8 @@ export default function signin() {
   container.addEventListener("submit", (e) => {
     e.preventDefault();
     userLogin(email.value, password.value)
-      .then(() => {
-        // localStorage
+      .then((user) => {
+        localStorage.setItem("userEmail", user.email);
         window.location.hash = "#timeLine";
       })
       .catch((error) => {
@@ -52,8 +52,8 @@ export default function signin() {
 
   buttonGoogle.addEventListener("click", (e) => {
     e.preventDefault();
-    signinGoogle().then(() => {
-      // localStorage
+    signinGoogle().then((result) => {
+      localStorage.setItem("userEmail", JSON.stringify(result.user));
       window.location.hash = "#timeLine";
       alert("Sucesso!!");
     });
