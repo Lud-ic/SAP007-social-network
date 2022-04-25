@@ -17,10 +17,10 @@ export function gettingPosts(post) {
           </div>` : ""}
         </div>
         <div class="post-items-organization">
-          <p>${post.city}, ${post.country}</p>
+          <p><span id="city">${post.city}</span>, <span id="country">${post.country}</span></p>
           <p>${post.date}</p>
         </div>
-        <p>${post.message}</p>
+        <p id="message">${post.message}</p>
         <div class="like-container" id="like">
           <button id="button-like" class="button-like">
             <img class="like-icon" src="assets/icon/no-like.svg"/>
@@ -45,7 +45,8 @@ export function gettingPosts(post) {
 
     editPost.addEventListener("click", (e) => {
       e.preventDefault();
-      container.appendChild(modalEditPost(post));
+
+      container.appendChild(modalEditPost(post, container));
     });
   }
 

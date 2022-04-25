@@ -50,6 +50,16 @@ export function deletePosts(itemId) {
   return deleteDoc(doc(db, "posts", itemId));
 }
 
+export function editPosts(itemId, city, country, message) {
+  const editPost = doc(db, "posts", itemId);
+  console.log(editPost, "editpost");
+  return updateDoc(editPost, {
+    city: city,
+    country: country,
+    message: message,
+  });
+}
+
 export async function like(itemId, userEmail) {
   try {
     const postId = doc(db, "posts", itemId);
