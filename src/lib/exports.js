@@ -1,12 +1,15 @@
+import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js";// eslint-disable-line
+
 export {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  GoogleAuthProvider,
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js"; // eslint-disable-line
 
+export const provider = new GoogleAuthProvider();
+export { GoogleAuthProvider };
 export {
   collection,
   addDoc,
