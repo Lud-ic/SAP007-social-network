@@ -1,6 +1,6 @@
 import { getAuth } from "../../lib/exports.js";
-import { deletePosts, like, dislike } from "../../lib/firestore-firebase.js";
-import { modalEditPost } from "./modal.js";
+import { like, dislike } from "../../lib/firestore-firebase.js";
+import { modalEditPost, modalDeletePost } from "./modal.js";
 
 const auth = getAuth();
 
@@ -39,8 +39,9 @@ export function gettingPosts(post) {
 
     deletePost.addEventListener("click", (e) => {
       e.preventDefault();
-      deletePosts(post.id);
-      container.remove();
+      // deletePosts(post.id);
+      // container.remove();
+      container.appendChild(modalDeletePost(post, container));
     });
 
     const editPost = container.querySelector("#editPost");

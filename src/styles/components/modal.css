@@ -11,7 +11,7 @@
 
 .modal-content {
   background-color: #f4f4f4;
-  margin: 20% auto;
+  margin: 50% auto;
   padding: 20px;
   width: 70%;
   border-radius: 20px;
@@ -20,12 +20,46 @@
 
 }
 
-.close-modal {
-  display: none;
-}
-
 @keyframes modalOpen {
   from  {top: 0px; width: 30%;}
   to {top: 200px; width: 70%;}
+
+}
+
+.modal-delete-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #FFFFFF;
+  border: 2px solid #F2D194;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin: auto;
+  padding: 10px;
+  gap: 20px;
+}
+
+.modal-delete-container p {
+  text-align: center;
+}
+
+.button-confirm-delete {
+  font-weight: 600;
+  background: #79C4F2;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
+  padding: 0.3rem 0.5rem;
+  font-size: 15px;
+  line-height: 19px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: 1s all;
+  margin: 5px;
+}
+
+.button-confirm-delete:hover{
+  background: #009fdd;
 
 }
