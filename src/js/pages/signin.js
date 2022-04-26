@@ -36,6 +36,21 @@ export default function signin() {
   const password = container.querySelector("#password");
   const buttonGoogle = container.querySelector("#buttonGoogle");
 
+  function validateInput() {
+    if (email.value !== "" && password.value !== "") {
+      return false;
+    }
+    return true;
+  }
+
+  email.addEventListener("keyup", () => {
+    validateInput();
+  });
+
+  password.addEventListener("keyup", () => {
+    validateInput();
+  });
+
   container.addEventListener("submit", (e) => {
     e.preventDefault();
     userLogin(email.value, password.value)
