@@ -1,5 +1,4 @@
-import { editPosts } from "../../lib/firestore-firebase.js";
-import { deletePosts } from "../../lib/firestore-firebase.js";
+import { editPosts, deletePosts } from "../../lib/firestore-firebase.js";
 
 export function modalEditPost(post, postContainer) {
   const modalContainer = document.createElement("div");
@@ -45,7 +44,6 @@ export function modalEditPost(post, postContainer) {
   });
 
   return modalContainer;
-
 }
 
 export function modalDeletePost(post, postContainer) {
