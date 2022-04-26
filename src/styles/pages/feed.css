@@ -67,7 +67,6 @@
   margin: 5px;
 }
 
-
 .button-submit-feed:hover{
   background: #009fdd;
 
@@ -84,7 +83,6 @@
   flex-direction: column;
   gap: 10px;
 }
-
 
 @media (min-width: 767px) {
   .main-content {
