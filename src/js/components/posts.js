@@ -1,6 +1,8 @@
-import { auth } from "../../lib/auth-firebase.js";
+import { getAuth } from "../../lib/exports.js";
 import { like, dislike } from "../../lib/firestore-firebase.js";
-import { modalDeletePost, modalEditPost } from "./modal.js";
+import { modalEditPost, modalDeletePost } from "./modal.js";
+
+const auth = getAuth();
 
 export function gettingPosts(post) {
   const isPostOwner = post.userEmail === auth.currentUser.email;
@@ -17,10 +19,10 @@ export function gettingPosts(post) {
           </div>` : ""}
         </div>
         <div class="post-items-organization">
-          <p>${post.city}, ${post.country}</p>
+          <p><span id="city">${post.city}</span>, <span id="country">${post.country}</span></p>
           <p>${post.date}</p>
         </div>
-        <p>${post.message}</p>
+        <p id="message">${post.message}</p>
         <div class="like-container" id="like">
           <button id="button-like" class="button-like">
             <img class="like-icon" src="assets/icon/no-like.svg"/>
@@ -46,7 +48,8 @@ export function gettingPosts(post) {
 
     editPost.addEventListener("click", (e) => {
       e.preventDefault();
-      container.appendChild(modalEditPost(post));
+
+      container.appendChild(modalEditPost(post, container));
     });
   }
 

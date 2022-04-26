@@ -1,8 +1,8 @@
+import { editPosts } from "../../lib/firestore-firebase.js";
 import { deletePosts } from "../../lib/firestore-firebase.js";
 
-export function modalEditPost(post) {
+export function modalEditPost(post, postContainer) {
   const modalContainer = document.createElement("div");
-
   const template = `
   <div id=modal class="modal">
     <div id=modalContent class="modal-content">
@@ -22,18 +22,30 @@ export function modalEditPost(post) {
 
   const modal = modalContainer.querySelector("#modal");
   const savePost = modalContainer.querySelector("#buttonSubmit");
+  const city = modalContainer.querySelector("#city");
+  const country = modalContainer.querySelector("#country");
+  const message = modalContainer.querySelector("#message");
+
   savePost.addEventListener("click", () => {
-    modal.classList.add("close-modal");
-    // postContainer.innerHTML = whatever the new html should be (like in gettingPosts)
+    editPosts(post.id, city.value, country.value, message.value);
+    const newCity = postContainer.querySelector("#city");
+    const newCountry = postContainer.querySelector("#country");
+    const newMessage = postContainer.querySelector("#message");
+    newCity.innerHTML = city.value;
+    newCountry.innerHTML = country.value;
+    newMessage.innerHTML = message.value;
+
+    modalContainer.remove();
   });
 
   window.addEventListener("click", (e) => {
     if (e.target === modal) {
-      modal.classList.add("close-modal");
+      modalContainer.remove();
     }
   });
 
   return modalContainer;
+
 }
 
 export function modalDeletePost(post, postContainer) {
