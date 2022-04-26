@@ -1,8 +1,11 @@
 import { addPosts, getPosts } from "../../lib/firestore-firebase.js";
-import { auth, userLogout } from "../../lib/auth-firebase.js";
+import { userLogout } from "../../lib/auth-firebase.js";
+import { getAuth } from "../../lib/exports.js";
 import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
 import { gettingPosts } from "../components/posts.js";
+
+const auth = getAuth();
 
 export default function timeLine() {
   const container = document.createElement("div");

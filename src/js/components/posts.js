@@ -1,6 +1,8 @@
-import { auth } from "../../lib/auth-firebase.js";
+import { getAuth } from "../../lib/exports.js";
 import { deletePosts, like, dislike } from "../../lib/firestore-firebase.js";
 import { modalEditPost } from "./modal.js";
+
+const auth = getAuth();
 
 export function gettingPosts(post) {
   const isPostOwner = post.userEmail === auth.currentUser.email;

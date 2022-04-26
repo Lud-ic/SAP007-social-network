@@ -54,9 +54,9 @@ export function editPosts(itemId, city, country, message) {
   const editPost = doc(db, "posts", itemId);
   console.log(editPost, "editpost");
   return updateDoc(editPost, {
-    city: city,
-    country: country,
-    message: message,
+    city,
+    country,
+    message,
   });
 }
 

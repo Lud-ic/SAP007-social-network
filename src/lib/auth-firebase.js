@@ -3,14 +3,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  provider,
   GoogleAuthProvider,
   signInWithPopup,
 } from "./exports.js";
 
-export const auth = getAuth();
-const provider = new GoogleAuthProvider();
-
 export function userCreate(email, password) {
+  const auth = getAuth();
   return createUserWithEmailAndPassword(auth, email, password).then(
     (userCredential) => {
       const user = userCredential.user;
@@ -20,6 +19,7 @@ export function userCreate(email, password) {
 }
 
 export function userLogin(email, password) {
+  const auth = getAuth();
   return signInWithEmailAndPassword(auth, email, password).then(
     (userCredential) => {
       const user = userCredential.user;
@@ -30,12 +30,14 @@ export function userLogin(email, password) {
 }
 
 export function userLogout() {
+  const auth = getAuth();
   return signOut(auth)
     .then(() => "Logout")
     .catch((error) => error);
 }
 
 export function signinGoogle() {
+  const auth = getAuth();
   return signInWithPopup(auth, provider).then((result) => {
     const credential = GoogleAuthProvider.credentialFromResult(result);
     // const token = credential.accessToken;
@@ -45,6 +47,7 @@ export function signinGoogle() {
 }
 
 export function checkLoggedUser() {
+  const auth = getAuth();
   const user = auth.currentUser;
 
   return user || localStorage.getItem("userEmail");
