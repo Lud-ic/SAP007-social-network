@@ -4,19 +4,22 @@ import * as exportsTest from "../../src/lib/exports.js";
 jest.mock("../../src/lib/exports.js");
 
 it("userCreate should create an user with email and password", async () => {
-  exportsTest.createUserWithEmailAndPassword.mockResolvedValue({
+  const email = "teste@teste.com";
+  const password = "123456";
+  const auth = undefined;
+  const mockUser = {
     user: {
-      // userEmail: "teste@teste.com",
-      // password: "123456",
+      email,
     },
-  });
+  };
 
-  const user = await userCreate("teste@teste.com", "123456");
-  console.log(user);
+  exportsTest.createUserWithEmailAndPassword.mockResolvedValue(mockUser);
+
+  const user = await userCreate(email, password);
 
   expect(exportsTest.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-  // verificando se foi chamado com email, verificar se o usuario é o que mockou acima
-  expect(exportsTest.createUserWithEmailAndPassword).toHaveBeenCalledWith("teste@teste.com", "123456");
+  expect(exportsTest.createUserWithEmailAndPassword).toHaveBeenCalledWith(auth, email, password);
+  expect(user).toEqual(mockUser.user);
 });
 
 it("userCreate should fail creating user and return error code", async () => {
