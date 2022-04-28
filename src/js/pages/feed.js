@@ -24,7 +24,7 @@ export default function timeLine() {
     <button id="buttonSubmit" class="button-submit-feed">Publicar</button>
     </div>
     <div class="section-posts-container">
-      <section id="sectionNewPost" class="section-post "></section>
+      <section id="sectionNewPost" class="section-post"></section>
       <section id="sectionAllPost" class="section-post"></section>
     </div>
   </div>`;
