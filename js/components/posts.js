@@ -24,11 +24,8 @@ export function gettingPosts(post) {
         </div>
         <p id="message">${post.message}</p>
         <div class="like-container" id="like">
-          <button id="button-like" class="button-like">
-            <img class="like-icon" src="assets/icon/no-like.svg"/>
-          </button>
+          <img class="like-icon" src="assets/icon/no-like.svg"/>
           <p id="num-likes" class="num-likes">${post.likes.length}</p>
-
         </div>
       </div>`;
 
@@ -39,8 +36,6 @@ export function gettingPosts(post) {
 
     deletePost.addEventListener("click", (e) => {
       e.preventDefault();
-      // deletePosts(post.id);
-      // container.remove();
       container.appendChild(modalDeletePost(post, container));
     });
 
@@ -48,7 +43,6 @@ export function gettingPosts(post) {
 
     editPost.addEventListener("click", (e) => {
       e.preventDefault();
-
       container.appendChild(modalEditPost(post, container));
     });
   }
@@ -63,15 +57,12 @@ export function gettingPosts(post) {
         postLike.push(auth.currentUser.email);
         const addLikeNum = Number(countLikes.innerHTML) + 1;
         countLikes.innerHTML = addLikeNum;
-        console.log(countLikes);
-        console.log(post, "poooooost");
       });
     } else {
       dislike(post.id, auth.currentUser.email).then(() => {
         postLike.splice(auth.currentUser.email);
         const addLikeNum = Number(countLikes.innerHTML) - 1;
         countLikes.innerHTML = addLikeNum;
-        console.log(countLikes);
       });
     }
   });

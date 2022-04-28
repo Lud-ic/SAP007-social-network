@@ -11,12 +11,14 @@
   background-color:#EFEFEF ;
 
 }
+
 .logout-container {
   width: 100%;
   display: flex;
   justify-content: end;
 
 }
+
 .logout{
   border: none;
   color:#009fdd;
@@ -47,11 +49,14 @@
   resize: none;
 
 }
+
 .button-submit-container{
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
+
 .button-submit-feed {
   font-weight: 600;
   background: #79C4F2;
@@ -69,19 +74,16 @@
 
 .button-submit-feed:hover{
   background: #009fdd;
-
 }
 
 .section-posts-container{
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .section-post {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 @media (min-width: 767px) {
