@@ -29,7 +29,7 @@ export function modalEditPost(post, postContainer) {
 
   savePost.addEventListener("click", () => {
     errorMessage.innerHTML = "";
-    if (city.value !== "" && country.value !== "" && message.value !== "") {
+    if (city.value.length >= "3" && country.value.length >= "3" && message.value.length >= "100") {
       editPosts(post.id, city.value, country.value, message.value).then(() => {
         const newCity = postContainer.querySelector("#city");
         const newCountry = postContainer.querySelector("#country");
@@ -40,8 +40,12 @@ export function modalEditPost(post, postContainer) {
 
         modalContainer.remove();
       });
-    } else {
+    } else if (city.value === "" && country.value === "" && message.value === "") {
       errorMessage.innerText = "Preencha todos os campos acima";
+    } else if (city.value.length < "3" || country.value.length < "3") {
+      errorMessage.innerText = "Preencha os campos cidade e país com mais de 3 caracteres";
+    } else if (message.value.length < "100") {
+      errorMessage.innerText = "Preencha a mensagem acima com mais de 100 caracteres";
     }
   });
 
