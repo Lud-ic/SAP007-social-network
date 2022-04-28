@@ -14,8 +14,8 @@ export function gettingPosts(post) {
           <p>${post.userEmail}</p>
           ${isPostOwner ? `
           <div>
-            <img id="editPost" src="assets/icon/edit.svg"/>
-            <img id="deletePost" class="bin-trash" src="assets/icon/bin-trash.svg"/>
+            <img id="edit-post" src="assets/icon/edit.svg"/>
+            <img id="delete-post" class="bin-trash" src="assets/icon/bin-trash.svg"/>
           </div>` : ""}
         </div>
         <div class="post-items-organization">
@@ -32,14 +32,14 @@ export function gettingPosts(post) {
   container.innerHTML = templatePosts;
 
   if (isPostOwner) {
-    const deletePost = container.querySelector("#deletePost");
+    const deletePost = container.querySelector("#delete-post");
 
     deletePost.addEventListener("click", (e) => {
       e.preventDefault();
       container.appendChild(modalDeletePost(post, container));
     });
 
-    const editPost = container.querySelector("#editPost");
+    const editPost = container.querySelector("#edit-post");
 
     editPost.addEventListener("click", (e) => {
       e.preventDefault();

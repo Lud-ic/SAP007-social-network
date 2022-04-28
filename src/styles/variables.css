@@ -1,8 +1,0 @@
-:root {
-  --main-bg-color: rgb(42, 42, 139);
-  --height-header: 9vh;
-  --height-footer: 9vh;
-  --height-main-content: 82vh;
-}
-
-/* background-color: var(--main-bg-color); como chamar a variável nos arquivos de css*/

@@ -19,7 +19,7 @@ export default function register() {
         <div class="error-container">
           <p id="error" class="error"></p>
         </div>
-        <button class="buttonSubmit btn-register" type="submit">Cadastrar</button>
+        <button class="button-submit btn-register" type="submit">Cadastrar</button>
         <p class="text-p"> <a href="#signin">Ja tem uma conta? </a></p>
       </form>
     </div>

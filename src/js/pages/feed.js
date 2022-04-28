@@ -22,11 +22,11 @@ export default function timeLine() {
     </div>
     <div class="button-submit-container">
       <p id="error" class="error"></p>
-      <button id="buttonSubmit" type="submit" class="button-submit-feed">Publicar</button>
+      <button id="button-submit" type="submit" class="button-submit-feed">Publicar</button>
     </div>
     <div class="section-posts-container">
-      <section id="sectionNewPost" class="section-post"></section>
-      <section id="sectionAllPost" class="section-post"></section>
+      <section id="section-new-post" class="section-post"></section>
+      <section id="section-all-post" class="section-post"></section>
     </div>
   </div>`;
 
@@ -38,9 +38,9 @@ export default function timeLine() {
   const city = container.querySelector("#city");
   const country = container.querySelector("#country");
   const message = container.querySelector("#message");
-  const buttonSubmit = container.querySelector("#buttonSubmit");
+  const buttonSubmit = container.querySelector("#button-submit");
   const logout = container.querySelector("#logout");
-  const sectionNewPost = container.querySelector("#sectionNewPost");
+  const sectionNewPost = container.querySelector("#section-new-post");
   const errorMessage = container.querySelector("#error");
 
   buttonSubmit.addEventListener("click", (e) => {
@@ -77,7 +77,7 @@ export default function timeLine() {
     }
   });
 
-  const sectionPost = container.querySelector("#sectionAllPost");
+  const sectionPost = container.querySelector("#section-all-post");
 
   const showAllPosts = async () => {
     const allPosts = await getPosts();

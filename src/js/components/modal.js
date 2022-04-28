@@ -4,7 +4,7 @@ export function modalEditPost(post, postContainer) {
   const modalContainer = document.createElement("div");
   const template = `
   <div id=modal class="modal">
-    <div id=modalContent class="modal-content">
+    <div class="modal-content">
       <div class="message-typing-container">
         <input value="${post.city}" type="text" id="city" class="message-typing" autocomplete="on" placeholder="Cidade"/>
         <input value="${post.country}" type="text" id="country" class="message-typing" autocomplete="on" placeholder="País"/>
@@ -12,7 +12,7 @@ export function modalEditPost(post, postContainer) {
       </div>
       <div class="button-submit-container">
         <p id="error" class="error"></p>
-        <button id="buttonSubmit" class="button-submit-feed">Salvar</button>
+        <button id="button-submit" class="button-submit-feed">Salvar</button>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@ export function modalEditPost(post, postContainer) {
   modalContainer.innerHTML = template;
 
   const modal = modalContainer.querySelector("#modal");
-  const savePost = modalContainer.querySelector("#buttonSubmit");
+  const savePost = modalContainer.querySelector("#button-submit");
   const city = modalContainer.querySelector("#city");
   const country = modalContainer.querySelector("#country");
   const message = modalContainer.querySelector("#message");
