@@ -57,15 +57,12 @@ export function gettingPosts(post) {
         postLike.push(auth.currentUser.email);
         const addLikeNum = Number(countLikes.innerHTML) + 1;
         countLikes.innerHTML = addLikeNum;
-        console.log(countLikes);
-        console.log(post, "poooooost");
       });
     } else {
       dislike(post.id, auth.currentUser.email).then(() => {
         postLike.splice(auth.currentUser.email);
         const addLikeNum = Number(countLikes.innerHTML) - 1;
         countLikes.innerHTML = addLikeNum;
-        console.log(countLikes);
       });
     }
   });

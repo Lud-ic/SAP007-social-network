@@ -23,7 +23,6 @@ export function userLogin(email, password) {
   return signInWithEmailAndPassword(auth, email, password).then(
     (userCredential) => {
       const user = userCredential.user;
-      console.log("entrou!");
       return user;
     },
   );
@@ -40,8 +39,6 @@ export function signinGoogle() {
   const auth = getAuth();
   return signInWithPopup(auth, provider).then((result) => {
     const credential = GoogleAuthProvider.credentialFromResult(result);
-    // const token = credential.accessToken;
-    // const user = result.user;
     return credential;
   });
 }
