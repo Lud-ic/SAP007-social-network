@@ -11,6 +11,7 @@ export function modalEditPost(post, postContainer) {
         <textarea name="textarea" rows="5" cols="30" id="message" class="message message-typing" placeholder="Compartilhe sua experiência aqui">${post.message}</textarea>
       </div>
       <div class="button-submit-container">
+        <p id="error" class="error"></p>
         <button id="buttonSubmit" class="button-submit-feed">Salvar</button>
       </div>
     </div>
@@ -24,17 +25,24 @@ export function modalEditPost(post, postContainer) {
   const city = modalContainer.querySelector("#city");
   const country = modalContainer.querySelector("#country");
   const message = modalContainer.querySelector("#message");
+  const errorMessage = modalContainer.querySelector("#error");
 
   savePost.addEventListener("click", () => {
-    editPosts(post.id, city.value, country.value, message.value);
-    const newCity = postContainer.querySelector("#city");
-    const newCountry = postContainer.querySelector("#country");
-    const newMessage = postContainer.querySelector("#message");
-    newCity.innerHTML = city.value;
-    newCountry.innerHTML = country.value;
-    newMessage.innerHTML = message.value;
+    errorMessage.innerHTML = "";
+    if (city.value !== "" && country.value !== "" && message.value !== "") {
+      editPosts(post.id, city.value, country.value, message.value).then(() => {
+        const newCity = postContainer.querySelector("#city");
+        const newCountry = postContainer.querySelector("#country");
+        const newMessage = postContainer.querySelector("#message");
+        newCity.innerHTML = city.value;
+        newCountry.innerHTML = country.value;
+        newMessage.innerHTML = message.value;
 
-    modalContainer.remove();
+        modalContainer.remove();
+      });
+    } else {
+      errorMessage.innerText = "Preencha todos os campos acima";
+    }
   });
 
   window.addEventListener("click", (e) => {
@@ -70,8 +78,9 @@ export function modalDeletePost(post, postContainer) {
   const buttonNo = modalContainer.querySelector("#button-no");
 
   buttonYes.addEventListener("click", () => {
-    deletePosts(post.id);
-    postContainer.remove();
+    deletePosts(post.id).then(() => {
+      postContainer.remove();
+    });
   });
 
   buttonNo.addEventListener("click", () => {
