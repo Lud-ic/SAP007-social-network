@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  provider,
+  // provider,
   GoogleAuthProvider,
   signInWithPopup,
 } from "./exports.js";
@@ -36,6 +36,7 @@ export function userLogout() {
 }
 
 export function signinGoogle() {
+  const provider = new GoogleAuthProvider();
   const auth = getAuth();
   return signInWithPopup(auth, provider).then((result) => {
     const credential = GoogleAuthProvider.credentialFromResult(result);
