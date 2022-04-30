@@ -3,110 +3,64 @@
 */
 
 // import {
-//   // userCreate,
-//   // userLogin,
-//   // userLogout,
-//   // signinGoogle,
+//   userCreate,
+//   userLogin,
+//   userLogout,
+//   signinGoogle,
 // } from "../../src/lib/auth-firebase.js";
+
 import * as exportsTest from "../../src/lib/exports.js";
 import register from "../../src/js/pages/register.js";
+// import signin from "../../src/js/pages/signin.js";
 
 jest.mock("../../src/lib/exports.js");
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-it("userCreate should create an user with email and password", async () => {
-  const email = "teste@teste.com";
-  const password = "123456";
-  const mockUser = {
-    user: {
-      email,
-    },
-  };
-  // const auth = undefined;
-  const pagCadastro = register();
-  console.log(pagCadastro);
-  // exportsTest.createUserWithEmailAndPassword.mockResolvedValue(mockUser);
-  expect(1 + 1).toEqual(2);
+// jest.mock("../../src/firebase.js");
 
-  // const user = await userCreate(email, password);
-
-  expect(exportsTest.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-  expect(exportsTest.createUserWithEmailAndPassword).toHaveBeenCalledWith(auth, email, password);
-  // expect(user).toEqual(mockUser.user);
+describe("register", () => {
+  beforeEach(() => exportsTest.createUserWithEmailAndPassword.mockClear());
+  it("an error should occur if the passwords do not match", () => {
+    const pageRegister = register();
+    const email = pageRegister.querySelector("#email");
+    const password = pageRegister.querySelector("#password");
+    const confirmPassword = pageRegister.querySelector("#confirm-password");
+    email.value = "teste@teste.com";
+    password.value = "123456";
+    confirmPassword.value = "1234567";
+    pageRegister.dispatchEvent(new Event("submit"));
+    const errorFound = pageRegister.querySelector("#error");
+    expect(errorFound.innerHTML).toEqual("senhas incompatíveis");
+    expect(exportsTest.createUserWithEmailAndPassword).not.toHaveBeenCalled();
+  });
 });
 
-// it("userCreate should fail creating user and return error code", async () => {
-//   exportsTest.createUserWithEmailAndPassword.mockRejectedValue({
-//     code: "auth/email-already-in-use",
-//   });
-//   try {
-//     await userCreate("teste@teste.com", "123456");
-//   } catch (error) {
-//     expect(exportsTest.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-//     expect(error.code).toBe("auth/email-already-in-use");
-//   }
-// });
+describe("userCreate", () => {
+  it("must log in when registering", () => {
+    exportsTest.createUserWithEmailAndPassword.mockResolvedValueOnce();
+    const pageRegister = register();
+    const email = pageRegister.querySelector("#email");
+    const password = pageRegister.querySelector("#password");
+    const confirmPassword = pageRegister.querySelector("#confirm-password");
+    email.value = "teste@teste.com";
+    password.value = "123456";
+    confirmPassword.value = "123456";
+    pageRegister.dispatchEvent(new Event("submit"));
+    expect(exportsTest.createUserWithEmailAndPassword.mock.calls[0][1]).toBe("teste@teste.com");
+    expect(exportsTest.createUserWithEmailAndPassword.mock.calls[0][2]).toBe("123456");
+    expect(exportsTest.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
+  });
+});
 
-// it("userLogin should singin an user with email and password", async () => {
-//   const email = "teste@teste.com";
-//   const password = "123456";
-//   const mockUser = {
-//     user: {
-//       email,
-//     },
-//   };
-//   const auth = undefined;
-//   exportsTest.signInWithEmailAndPassword.mockResolvedValue(mockUser);
-
-//   const user = await userLogin(email, password);
-
-//   expect(exportsTest.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
-//   expect(exportsTest.signInWithEmailAndPassword).toHaveBeenCalledWith(auth, email, password);
-//   expect(user).toEqual(mockUser.user);
-// });
-
-// it("userLogin should fail signin user and return error code", async () => {
-//   exportsTest.signInWithEmailAndPassword.mockRejectedValue({
-//     code: "auth/email-already-in-use",
-//   });
-//   try {
-//     await userLogin("teste@teste.com", "123456");
-//   } catch (error) {
+// describe("signin", () => {
+//   it("should log in", () => {
+//     exportsTest.signInWithEmailAndPassword.mockResolvedValueOnce();
+//     const pageSignin = signin();
+//     const email = pageSignin.querySelector("#email");
+//     const password = pageSignin.querySelector("#password");
+//     email.value = "teste@teste.com";
+//     password.value = "123456";
+//     pageSignin.dispatchEvent(new Event("submit"));
+//     expect(exportsTest.signInWithEmailAndPassword.mock.calls[0][1]).toEqual("teste@teste.com");
+//     expect(exportsTest.signInWithEmailAndPassword.mock.calls[0][2]).toEqual("123456");
 //     expect(exportsTest.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
-//     expect(error.code).toBe("auth/email-already-in-use");
-//   }
-// });
-// it("userLogout should logout an user", async () => {
-//   exportsTest.signOut.mockResolvedValue({
-//     code: "Logout",
 //   });
-//   expect(exportsTest.signOut).toEqual("Logout");
-//   expect(exportsTest.signOut(auth)).toHaveBeenCalledTimes(1);
-// });
-
-// it("userLogout should fail logout user and return error code", async () => {
-//   exportsTest.signOut.mockRejectedValue({
-//     code: "auth/email-already-in-use",
-//   });
-//   try {
-//     await userLogout();
-//   } catch (error) {
-//     console.log(error);
-//     expect(exportsTest.signOut).toHaveBeenCalledTimes(1);
-//     expect(error.code).toBe("auth/email-already-in-use");
-//   }
-// });
-
-// describe("registerAndLoginGoogle", () => {
-//   it("", () => {
-//     expect(signinGoogle()).toEqual(exportsTest.signInWithPopup);
-//   });
-//   it("deveria parar de reclamar", () => exportsTest.signInWithPopup
-//     .then(() => {
-//       expect(exportsTest.signInWithPopup).toHaveBeenCalled();
-//       // expect(signInWithPopup.mock.calls).toHaveLength(3);
-//       // expect(signInWithPopup.mock.calls[0][0]).toEqual(getAuth());
-//       expect(exportsTest.signInWithPopup.mock.calls[0][1]).toEqual(exportsTest.provider());
-//     }));
 // });
