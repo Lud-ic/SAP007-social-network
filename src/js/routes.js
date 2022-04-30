@@ -1,13 +1,13 @@
 import signin from "./pages/signin.js";
 import register from "./pages/register.js";
 import timeLine from "./pages/feed.js";
-import { checkLoggedUser } from "../lib/auth-firebase.js";
+import { getUser } from "../lib/auth-firebase.js";
 
 const main = document.getElementById("root");
 
 const redirectRoutes = () => {
   main.innerHTML = "";
-  const loggedIn = checkLoggedUser();
+  const loggedIn = getUser();
   if (loggedIn) {
     switch (window.location.hash) {
       case "#timeLine":
@@ -27,10 +27,6 @@ const redirectRoutes = () => {
   }
 };
 
-window.addEventListener("hashchange", () => {
-  redirectRoutes();
-});
+window.addEventListener("hashchange", redirectRoutes);
 
-window.addEventListener("load", () => {
-  redirectRoutes();
-});
+window.addEventListener("load", redirectRoutes);

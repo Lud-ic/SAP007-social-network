@@ -16,6 +16,11 @@
   justify-content: space-between;
 }
 
+.message {
+  width: 99%;
+  word-wrap: break-word;
+}
+
 .like-icon {
   width: 25px;
 }

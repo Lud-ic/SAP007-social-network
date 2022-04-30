@@ -18,7 +18,7 @@ export default function timeLine() {
     <div class="message-typing-container">
       <input type="text" id="city" class="message-typing" autocomplete="on" placeholder="Cidade"/>
       <input type="text" id="country" class="message-typing" autocomplete="on" placeholder="País"/>
-      <textarea name="textarea" rows="5" cols="30" id="message" class="message message-typing" placeholder="Compartilhe sua experiência aqui"></textarea>
+      <textarea name="textarea" rows="5" cols="30" id="message" class="message message-typing" placeholder="Compartilhe sua experiência aqui (min-caracteres:100)"></textarea>
     </div>
     <div class="button-submit-container">
       <p id="error" class="error"></p>
@@ -52,22 +52,23 @@ export default function timeLine() {
         country.value,
         message.value,
         auth.currentUser.email,
-      ).then((id) => {
-        const date = new Date().toLocaleString("pt-br");
-        const post = {
-          userEmail: auth.currentUser.email,
-          city: city.value,
-          country: country.value,
-          message: message.value,
-          date,
-          id,
-          likes: [],
-        };
-        sectionNewPost.prepend(gettingPosts(post));
-        city.value = "";
-        country.value = "";
-        message.value = "";
-      });
+      )
+        .then((id) => {
+          const date = new Date().toLocaleString("pt-br");
+          const post = {
+            userEmail: auth.currentUser.email,
+            city: city.value,
+            country: country.value,
+            message: message.value,
+            date,
+            id,
+            likes: [],
+          };
+          sectionNewPost.prepend(gettingPosts(post));
+          city.value = "";
+          country.value = "";
+          message.value = "";
+        });
     } else if (city.value === "" && country.value === "" && message.value === "") {
       errorMessage.innerText = "Preencha todos os campos acima";
     } else if (city.value.length < "3" || country.value.length < "3") {

@@ -2,12 +2,13 @@ import "../../lib/config-firebase.js";
 import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
+import errorMessages from "../error.js";
 
 export default function signin() {
   const container = document.createElement("section");
+  container.classList.add("main-content");
 
   const template = `
-  <div class="main-content">
     <h1 class="text-form">Acesse sua conta ou cadastre-se</h1>
     <div class="container">
       <form class="form-container">
@@ -24,7 +25,6 @@ export default function signin() {
         <button class="button-google" id="button-google"><img src="assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
       </form>
     </div>
-  </div>
 
   `;
 
@@ -48,30 +48,21 @@ export default function signin() {
       })
       .catch((error) => {
         const errorCode = error.code;
-        errorFound.innerHTML = "";
-        switch (errorCode) {
-          case "auth/user-not-found":
-            errorFound.innerHTML = "usuário não encontrado";
-            break;
-          case "auth/wrong-password":
-            errorFound.innerHTML = "senha incorreta";
-            break;
-          default:
-            errorFound.innerHTML = "ocorreu um erro, tente novamente";
-        }
-        return errorCode;
+        errorFound.innerHTML = errorMessages(errorCode);
       });
   });
 
   buttonGoogle.addEventListener("click", (e) => {
     e.preventDefault();
-    signinGoogle().then((result) => {
-      localStorage.setItem("userEmail", JSON.stringify(result.user));
-      window.location.hash = "#timeLine";
-    }).catch((error) => {
-      errorFound.innerHTML = "ocorreu um erro, tente novamente";
-      return error;
-    });
+    signinGoogle()
+      .then((result) => {
+        localStorage.setItem("userEmail", JSON.stringify(result.user));
+        window.location.hash = "#timeLine";
+      })
+      .catch((error) => {
+        errorFound.innerHTML = "ocorreu um erro, tente novamente";
+        return error;
+      });
   });
 
   return container;
