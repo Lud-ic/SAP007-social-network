@@ -31,15 +31,16 @@ export default function register() {
 
   container.appendChild(footer());
 
-  const email = container.querySelector("#email");
-  const password = container.querySelector("#password");
+  const emailInput = container.querySelector("#email");
+  const passwordInput = container.querySelector("#password");
   const confirmPassword = container.querySelector("#confirm-password");
   const errorFound = container.querySelector("#error");
 
   container.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (password.value === confirmPassword.value) {
-      userCreate(email.value, password.value).then(() => {
+    let errorMessage = "";
+    if (passwordInput.value === confirmPassword.value) {
+      userCreate(emailInput.value, passwordInput.value).then(() => {
         window.location.hash = "#timeLine";
       })
         .catch((error) => {
@@ -47,20 +48,20 @@ export default function register() {
           errorFound.innerHTML = "";
           switch (errorCode) {
             case "auth/email-already-in-use":
-              errorFound.innerHTML = "usuário já cadastrado";
+              errorMessage = "usuário já cadastrado";
               break;
             case "auth/invalid-email":
-              errorFound.innerHTML = "email inválido";
+              errorMessage = "email inválido";
               break;
             default:
-              errorFound.innerHTML = "ocorreu um erro, tente novamente";
+              errorMessage = "ocorreu um erro, tente novamente";
           }
-          return errorCode;
         });
     } else {
-      errorFound.innerHTML = "";
-      errorFound.innerHTML = "senhas incompatíveis";
+      errorMessage = "";
+      errorMessage = "senhas incompatíveis";
     }
+    errorFound.innerHTML = errorMessage;
   });
   return container;
 }

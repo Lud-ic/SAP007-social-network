@@ -30,16 +30,20 @@ export function modalEditPost(post, postContainer) {
   savePost.addEventListener("click", () => {
     errorMessage.innerHTML = "";
     if (city.value.length >= "3" && country.value.length >= "3" && message.value.length >= "100") {
-      editPosts(post.id, city.value, country.value, message.value).then(() => {
-        const newCity = postContainer.querySelector("#city");
-        const newCountry = postContainer.querySelector("#country");
-        const newMessage = postContainer.querySelector("#message");
-        newCity.innerHTML = city.value;
-        newCountry.innerHTML = country.value;
-        newMessage.innerHTML = message.value;
+      editPosts(post.id, city.value, country.value, message.value)
+        .then(() => {
+          const newCity = postContainer.querySelector("#city");
+          const newCountry = postContainer.querySelector("#country");
+          const newMessage = postContainer.querySelector("#message");
+          newCity.innerHTML = city.value;
+          newCountry.innerHTML = country.value;
+          newMessage.innerHTML = message.value;
 
-        modalContainer.remove();
-      });
+          modalContainer.remove();
+        })
+        .catch(() => {
+          console.log("error");
+        });
     } else if (city.value === "" && country.value === "" && message.value === "") {
       errorMessage.innerText = "Preencha todos os campos acima";
     } else if (city.value.length < "3" || country.value.length < "3") {

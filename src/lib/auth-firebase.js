@@ -43,7 +43,7 @@ export function signinGoogle() {
   });
 }
 
-export function checkLoggedUser() {
+export function getUser() {
   const auth = getAuth();
   const user = auth.currentUser;
 
