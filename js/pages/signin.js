@@ -2,6 +2,7 @@ import "../../lib/config-firebase.js";
 import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
+import { errorMessages } from "../error.js";
 
 export default function signin() {
   const container = document.createElement("section");
@@ -13,19 +14,18 @@ export default function signin() {
       <form class="form-container">
         <label class="label-email">Email</label>
         <input type="email" class="email" id="email" autocomplete="on" required/>
-        <label class=label-password>Senha</label>
+        <label class="label-password">Senha</label>
         <input type="password" class="password" id="password" minlength="6" required/>
         <div class="error-container">
           <p id="error" class="error"></p>
         </div>
-        <button class="buttonSubmit" type="submit">Entrar</button>
+        <button class="button-submit" type="submit">Entrar</button>
         <p class="text-p">Não tem uma conta?<a href="#register"> Cadastre-se</a></p>
         <p class="text">ou</p>
-        <button class="buttonGoogle" id="buttonGoogle"><img src="assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
+        <button class="button-google" id="button-google"><img src="assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
       </form>
     </div>
   </div>
-
   `;
 
   container.appendChild(header());
@@ -36,7 +36,7 @@ export default function signin() {
 
   const email = container.querySelector("#email");
   const password = container.querySelector("#password");
-  const buttonGoogle = container.querySelector("#buttonGoogle");
+  const buttonGoogle = container.querySelector("#button-google");
   const errorFound = container.querySelector("#error");
 
   container.addEventListener("submit", (e) => {
@@ -48,30 +48,21 @@ export default function signin() {
       })
       .catch((error) => {
         const errorCode = error.code;
-        errorFound.innerHTML = "";
-        switch (errorCode) {
-          case "auth/user-not-found":
-            errorFound.innerHTML = "usuario não encontrado";
-            break;
-          case "auth/wrong-password":
-            errorFound.innerHTML = "senha incorreta";
-            break;
-          default:
-            errorFound.innerHTML = "ocorreu um erro, tente novamente";
-        }
-        return errorCode;
+        errorFound.innerHTML = errorMessages(errorCode);
       });
   });
 
   buttonGoogle.addEventListener("click", (e) => {
     e.preventDefault();
-    signinGoogle().then((result) => {
-      localStorage.setItem("userEmail", JSON.stringify(result.user));
-      window.location.hash = "#timeLine";
-    }).catch((error) => {
-      errorFound.innerHTML = "ocorreu um erro, tente novamente";
-      return error;
-    });
+    signinGoogle()
+      .then((result) => {
+        localStorage.setItem("userEmail", JSON.stringify(result.user));
+        window.location.hash = "#timeLine";
+      })
+      .catch((error) => {
+        errorFound.innerHTML = "ocorreu um erro, tente novamente";
+        return error;
+      });
   });
 
   return container;

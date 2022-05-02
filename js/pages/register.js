@@ -1,6 +1,7 @@
 import { userCreate } from "../../lib/auth-firebase.js";
 import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
+import { errorMessages } from "../error.js";
 
 export default function register() {
   const container = document.createElement("section");
@@ -19,7 +20,7 @@ export default function register() {
         <div class="error-container">
           <p id="error" class="error"></p>
         </div>
-        <button class="buttonSubmit btn-register" type="submit">Cadastrar</button>
+        <button class="button-submit btn-register" type="submit">Cadastrar</button>
         <p class="text-p"> <a href="#signin">Ja tem uma conta? </a></p>
       </form>
     </div>
@@ -31,36 +32,28 @@ export default function register() {
 
   container.appendChild(footer());
 
-  const email = container.querySelector("#email");
-  const password = container.querySelector("#password");
+  const emailInput = container.querySelector("#email");
+  const passwordInput = container.querySelector("#password");
   const confirmPassword = container.querySelector("#confirm-password");
   const errorFound = container.querySelector("#error");
 
   container.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (password.value === confirmPassword.value) {
-      userCreate(email.value, password.value).then(() => {
+    let errorMessage = "";
+    if (passwordInput.value === confirmPassword.value) {
+      userCreate(emailInput.value, passwordInput.value).then((user) => {
+        localStorage.setItem("userEmail", user.email);
         window.location.hash = "#timeLine";
       })
         .catch((error) => {
           const errorCode = error.code;
-          errorFound.innerHTML = "";
-          switch (errorCode) {
-            case "auth/email-already-in-use":
-              errorFound.innerHTML = "usuário já cadastrado";
-              break;
-            case "auth/invalid-email":
-              errorFound.innerHTML = "email inválido";
-              break;
-            default:
-              errorFound.innerHTML = "ocorreu um erro, tente novamente";
-          }
-          return errorCode;
+          errorFound.innerHTML = errorMessages(errorCode);
         });
     } else {
-      errorFound.innerHTML = "";
-      errorFound.innerHTML = "senhas incompatíveis";
+      errorMessage = "";
+      errorMessage = "senhas incompatíveis";
     }
+    errorFound.innerHTML = errorMessage;
   });
   return container;
 }

@@ -18,15 +18,15 @@ export default function timeLine() {
     <div class="message-typing-container">
       <input type="text" id="city" class="message-typing" autocomplete="on" placeholder="Cidade"/>
       <input type="text" id="country" class="message-typing" autocomplete="on" placeholder="País"/>
-      <textarea name="textarea" rows="5" cols="30" id="message" class="message message-typing" placeholder="Compartilhe sua experiência aqui"></textarea>
+      <textarea name="textarea" rows="5" cols="30" id="message" class="message message-typing" placeholder="Compartilhe sua experiência aqui (min-caracteres:100)"></textarea>
     </div>
     <div class="button-submit-container">
       <p id="error" class="error"></p>
-      <button id="buttonSubmit" type="submit" class="button-submit-feed">Publicar</button>
+      <button id="button-submit" type="submit" class="button-submit-feed">Publicar</button>
     </div>
     <div class="section-posts-container">
-      <section id="sectionNewPost" class="section-post"></section>
-      <section id="sectionAllPost" class="section-post"></section>
+      <section id="section-new-post" class="section-post"></section>
+      <section id="section-all-post" class="section-post"></section>
     </div>
   </div>`;
 
@@ -38,9 +38,9 @@ export default function timeLine() {
   const city = container.querySelector("#city");
   const country = container.querySelector("#country");
   const message = container.querySelector("#message");
-  const buttonSubmit = container.querySelector("#buttonSubmit");
+  const buttonSubmit = container.querySelector("#button-submit");
   const logout = container.querySelector("#logout");
-  const sectionNewPost = container.querySelector("#sectionNewPost");
+  const sectionNewPost = container.querySelector("#section-new-post");
   const errorMessage = container.querySelector("#error");
 
   buttonSubmit.addEventListener("click", (e) => {
@@ -52,22 +52,23 @@ export default function timeLine() {
         country.value,
         message.value,
         auth.currentUser.email,
-      ).then((id) => {
-        const date = new Date().toLocaleString("pt-br");
-        const post = {
-          userEmail: auth.currentUser.email,
-          city: city.value,
-          country: country.value,
-          message: message.value,
-          date,
-          id,
-          likes: [],
-        };
-        sectionNewPost.prepend(gettingPosts(post));
-        city.value = "";
-        country.value = "";
-        message.value = "";
-      });
+      )
+        .then((id) => {
+          const date = new Date().toLocaleString("pt-br");
+          const post = {
+            userEmail: auth.currentUser.email,
+            city: city.value,
+            country: country.value,
+            message: message.value,
+            date,
+            id,
+            likes: [],
+          };
+          sectionNewPost.prepend(gettingPosts(post));
+          city.value = "";
+          country.value = "";
+          message.value = "";
+        });
     } else if (city.value === "" && country.value === "" && message.value === "") {
       errorMessage.innerText = "Preencha todos os campos acima";
     } else if (city.value.length < "3" || country.value.length < "3") {
@@ -77,7 +78,7 @@ export default function timeLine() {
     }
   });
 
-  const sectionPost = container.querySelector("#sectionAllPost");
+  const sectionPost = container.querySelector("#section-all-post");
 
   const showAllPosts = async () => {
     const allPosts = await getPosts();
