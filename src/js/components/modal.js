@@ -66,7 +66,7 @@ export function modalDeletePost(post, postContainer) {
   const modalContainer = document.createElement("div");
 
   const template = `
-  <div id=modal class="modal">
+  <div id="modal" class="modal">
     <div class="modal-content">
       <div class="modal-delete-container" >
         <p>Você tem certeza que deseja excluir a postagem?</p>

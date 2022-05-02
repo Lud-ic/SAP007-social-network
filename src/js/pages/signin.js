@@ -2,13 +2,13 @@ import "../../lib/config-firebase.js";
 import { signinGoogle, userLogin } from "../../lib/auth-firebase.js";
 import { header } from "../components/header.js";
 import { footer } from "../components/footer.js";
-import errorMessages from "../error.js";
+import { errorMessages } from "../error.js";
 
 export default function signin() {
   const container = document.createElement("section");
-  container.classList.add("main-content");
 
   const template = `
+  <div class="main-content">
     <h1 class="text-form">Acesse sua conta ou cadastre-se</h1>
     <div class="container">
       <form class="form-container">
@@ -25,7 +25,7 @@ export default function signin() {
         <button class="button-google" id="button-google"><img src="assets/icon/icon-google.svg" alt="logo-google"/>Acessar com o Google</button>
       </form>
     </div>
-
+  </div>
   `;
 
   container.appendChild(header());
