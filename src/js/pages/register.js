@@ -1,6 +1,7 @@
 import { userCreate } from "../../lib/auth-firebase.js";
 import { footer } from "../components/footer.js";
 import { header } from "../components/header.js";
+import { errorMessages } from "../error.js";
 
 export default function register() {
   const container = document.createElement("section");
@@ -40,22 +41,13 @@ export default function register() {
     e.preventDefault();
     let errorMessage = "";
     if (passwordInput.value === confirmPassword.value) {
-      userCreate(emailInput.value, passwordInput.value).then(() => {
+      userCreate(emailInput.value, passwordInput.value).then((user) => {
+        localStorage.setItem("userEmail", user.email);
         window.location.hash = "#timeLine";
       })
         .catch((error) => {
           const errorCode = error.code;
-          errorFound.innerHTML = "";
-          switch (errorCode) {
-            case "auth/email-already-in-use":
-              errorMessage = "usuário já cadastrado";
-              break;
-            case "auth/invalid-email":
-              errorMessage = "email inválido";
-              break;
-            default:
-              errorMessage = "ocorreu um erro, tente novamente";
-          }
+          errorFound.innerHTML = errorMessages(errorCode);
         });
     } else {
       errorMessage = "";
