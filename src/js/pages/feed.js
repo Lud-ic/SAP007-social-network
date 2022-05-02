@@ -31,6 +31,7 @@ export default function timeLine() {
   </div>`;
 
   container.appendChild(header());
+
   container.innerHTML += template;
 
   container.appendChild(footer());

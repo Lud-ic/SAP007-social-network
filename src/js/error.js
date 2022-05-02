@@ -5,7 +5,7 @@ export function errorMessages(errorCode) {
       errorMessage = "usuário não encontrado";
       break;
     case "auth/wrong-password":
-      errorMessage = "email ousenha incorreta";
+      errorMessage = "email ou senha incorreta";
       break;
     case "auth/email-already-in-use":
       errorMessage = "usuário já cadastrado";
