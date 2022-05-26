@@ -53,15 +53,15 @@ export function gettingPosts(post) {
 
   buttonLike.addEventListener("click", () => {
     const postLike = post.likes;
-    if (!postLike.includes(getUserEmail)) {
-      like(post.id, getUserEmail).then(() => {
-        postLike.push(getUserEmail);
+    if (!postLike.includes(getUserEmail.email)) {
+      like(post.id, getUserEmail.email).then(() => {
+        postLike.push(getUserEmail.email);
         const addLikeNum = Number(countLikes.innerHTML) + 1;
         countLikes.innerHTML = addLikeNum;
       });
     } else {
-      dislike(post.id, getUserEmail).then(() => {
-        postLike.splice(getUserEmail);
+      dislike(post.id, getUserEmail.email).then(() => {
+        postLike.splice(getUserEmail.email);
         const addLikeNum = Number(countLikes.innerHTML) - 1;
         countLikes.innerHTML = addLikeNum;
       });
